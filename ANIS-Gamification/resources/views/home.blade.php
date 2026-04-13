@@ -316,10 +316,67 @@
         </div>
       </div>
     </section>
+
+    <section class="bg-surface-container-low px-6 py-24">
+      <div class="mx-auto max-w-7xl">
+        <div class="grid gap-8 lg:grid-cols-3">
+          <div class="lg:col-span-2 flex min-h-[400px] flex-col justify-between rounded-lg bg-primary p-12 text-on-primary">
+            <h2 class="max-w-md font-headline text-4xl font-extrabold leading-tight">
+              Notre engagement pour votre confidentialite
+            </h2>
+            <div class="flex items-end justify-between gap-6">
+              <p class="max-w-sm text-lg opacity-90">
+                Nous utilisons un haut niveau de protection pour securiser votre parcours personnel.
+              </p>
+              <span class="material-symbols-outlined text-7xl opacity-20">verified_user</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-center rounded-lg bg-surface-container-lowest p-12 shadow-sm">
+            <h3 class="mb-4 font-headline text-2xl font-bold">Urgence 24h/24</h3>
+            <p class="mb-8 text-on-surface-variant">
+              Accedez immediatement a une assistance via notre portail clinique securise.
+            </p>
+            <button
+              class="w-full rounded-lg border-2 border-primary py-4 font-bold text-primary transition-all hover:bg-primary/5">
+              Contact d'urgence
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-24" id="cta">
+      <div class="mx-auto max-w-5xl rounded-lg bg-surface-container-highest/50 p-12 text-center">
+        <h2 class="mb-6 font-headline text-4xl font-extrabold">Pret a commencer votre croissance ?</h2>
+        <p class="mx-auto mb-10 max-w-2xl text-lg text-on-surface-variant">
+          Rejoignez l'ecosysteme ANIS aujourd'hui et commencez votre parcours personnalise vers un mieux-etre durable.
+        </p>
+        <a href="#"
+          class="inline-flex rounded-lg bg-primary px-10 py-5 text-xl font-bold text-on-primary shadow-xl shadow-primary/30 transition-all active:scale-95">
+          S'inscrire gratuitement
+        </a>
+      </div>
+    </section>
   </main>
 
-  <footer class="bg-black px-6 py-10 text-center text-white">
-    <p>© 2026 ANIS. Tous droits reserves.</p>
+  <footer class="mt-auto bg-[#eff1f2] px-6 py-12">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 md:flex-row">
+      <div class="flex flex-col items-center gap-4 md:items-start">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-2xl text-primary">local_florist</span>
+          <span class="text-xl font-bold text-primary">ANIS</span>
+        </div>
+        <p class="text-sm text-[#2c2f30] opacity-70">© 2026 ANIS. Cultiver la resilience par la croissance.</p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-6">
+        <a class="text-sm text-[#2c2f30] transition-all hover:text-primary hover:underline" href="#">Confidentialite</a>
+        <a class="text-sm text-[#2c2f30] transition-all hover:text-primary hover:underline" href="#">Conditions</a>
+        <a class="text-sm text-[#2c2f30] transition-all hover:text-primary hover:underline" href="#">Normes Cliniques</a>
+        <a class="text-sm text-[#2c2f30] transition-all hover:text-primary hover:underline" href="#">Contact</a>
+      </div>
+    </div>
   </footer>
 </body>
 

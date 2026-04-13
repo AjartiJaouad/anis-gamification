@@ -79,3 +79,6 @@
     </div>
   </div>
 </section>
+<footer class="px-6 py-10 bg-black text-white text-center">
+  <p>© 2026 ANIS. Tous droits réservés.</p>
+</footer>

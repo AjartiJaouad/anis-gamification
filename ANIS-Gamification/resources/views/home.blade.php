@@ -64,3 +64,18 @@
     </div>
   </div>
 </section>
+<section id="team" class="px-6 py-20 bg-gray-50">
+  <h2 class="text-3xl font-bold text-center mb-10">Équipe</h2>
+
+  <div class="grid md:grid-cols-4 gap-6 text-center">
+    <div>
+      <div class="w-24 h-24 bg-purple-200 rounded-full mx-auto mb-3"></div>
+      <h4 class="font-bold">Dr. Sarah</h4>
+    </div>
+
+    <div>
+      <div class="w-24 h-24 bg-purple-200 rounded-full mx-auto mb-3"></div>
+      <h4 class="font-bold">Marcus</h4>
+    </div>
+  </div>
+</section>

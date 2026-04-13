@@ -44,3 +44,23 @@
   </p>
 </section>
 
+<section id="services" class="px-6 py-20">
+  <h2 class="text-3xl font-bold mb-10 text-center">Nos Services</h2>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="p-6 shadow rounded-xl">
+      <h3 class="font-bold mb-2">Sensibilisation</h3>
+      <p>Apprentissage interactif et ludique.</p>
+    </div>
+
+    <div class="p-6 shadow rounded-xl">
+      <h3 class="font-bold mb-2">Suivi</h3>
+      <p>Suivi des progrès utilisateurs.</p>
+    </div>
+
+    <div class="p-6 shadow rounded-xl">
+      <h3 class="font-bold mb-2">Support</h3>
+      <p>Aide et accompagnement continu.</p>
+    </div>
+  </div>
+</section>

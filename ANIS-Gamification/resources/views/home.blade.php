@@ -36,3 +36,11 @@
 
   <img src="{{ asset('image/img1.jpg') }}" class="w-[400px] rounded-xl shadow-lg" />
 </section>
+<section id="about" class="px-6 py-20 bg-gray-50">
+  <h2 class="text-3xl font-bold mb-6">À propos</h2>
+
+  <p class="text-gray-600 max-w-2xl">
+    ANIS est une plateforme qui aide les utilisateurs à comprendre leurs comportements et à développer des habitudes saines.
+  </p>
+</section>
+

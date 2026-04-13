@@ -14,3 +14,25 @@
     Commencer
   </a>
 </header>
+<section class="pt-28 px-6 flex flex-col lg:flex-row items-center justify-between">
+  <div class="max-w-xl">
+    <h1 class="text-5xl font-bold mb-6">
+      ANIS : Apprendre à gérer les addictions
+    </h1>
+
+    <p class="text-gray-600 mb-6">
+      Une plateforme interactive pour comprendre et gérer les addictions de manière ludique.
+    </p>
+
+    <div class="flex gap-4">
+      <button class="bg-purple-600 text-white px-6 py-3 rounded-lg">
+        Débuter
+      </button>
+      <button class="border border-purple-600 text-purple-600 px-6 py-3 rounded-lg">
+        Ressources
+      </button>
+    </div>
+  </div>
+
+  <img src="{{ asset('image/img1.jpg') }}" class="w-[400px] rounded-xl shadow-lg" />
+</section>

@@ -104,81 +104,90 @@
 
 <body class="bg-background font-body text-on-background">
   <header
-    class="fixed inset-x-0 top-0 z-50 mx-auto flex w-full max-w-7xl items-center justify-between bg-[#f5f6f7]/80 px-6 py-4 backdrop-blur-xl">
-    <div class="flex items-center gap-2">
-      <span class="material-symbols-outlined text-3xl text-primary">local_florist</span>
-      <span class="font-headline text-2xl font-black tracking-tight text-primary">ANIS</span>
+    class="fixed inset-x-0 top-0 z-50 bg-[#f5f6f7]/90 backdrop-blur-xl">
+    <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-3xl text-primary">local_florist</span>
+        <span class="font-headline text-xl font-black tracking-tight text-primary sm:text-2xl">ANIS</span>
+      </div>
+
+      <nav class="hidden items-center gap-8 md:flex">
+        <a class="border-b-2 border-primary font-headline font-bold text-primary" href="#">Accueil</a>
+        <a class="font-headline font-medium text-[#2c2f30] transition-colors duration-300 hover:text-primary-dim" href="#about">A propos</a>
+        <a class="font-headline font-medium text-[#2c2f30] transition-colors duration-300 hover:text-primary-dim" href="#services">Services</a>
+        <a class="font-headline font-medium text-[#2c2f30] transition-colors duration-300 hover:text-primary-dim" href="#team">Equipe</a>
+      </nav>
+
+      <a href="#cta"
+        class="rounded-full bg-primary px-4 py-2.5 text-xs font-bold text-on-primary shadow-sm transition-all active:scale-95 active:opacity-80 sm:px-6 sm:py-3 sm:text-sm">
+        Commencer
+      </a>
     </div>
 
-    <nav class="hidden items-center gap-8 md:flex">
-      <a class="font-headline font-bold text-primary border-b-2 border-primary" href="#">Accueil</a>
-      <a class="font-headline font-medium text-[#2c2f30] transition-colors duration-300 hover:text-primary-dim" href="#about">A propos</a>
-      <a class="font-headline font-medium text-[#2c2f30] transition-colors duration-300 hover:text-primary-dim" href="#services">Services</a>
-      <a class="font-headline font-medium text-[#2c2f30] transition-colors duration-300 hover:text-primary-dim" href="#team">Equipe</a>
+    <nav class="mx-auto flex w-full max-w-7xl items-center gap-2 overflow-x-auto px-4 pb-4 text-sm md:hidden sm:px-6">
+      <a class="whitespace-nowrap rounded-full bg-primary px-4 py-2 font-headline font-bold text-on-primary" href="#">Accueil</a>
+      <a class="whitespace-nowrap rounded-full bg-white px-4 py-2 font-headline font-medium text-on-background shadow-sm" href="#about">A propos</a>
+      <a class="whitespace-nowrap rounded-full bg-white px-4 py-2 font-headline font-medium text-on-background shadow-sm" href="#services">Services</a>
+      <a class="whitespace-nowrap rounded-full bg-white px-4 py-2 font-headline font-medium text-on-background shadow-sm" href="#team">Equipe</a>
     </nav>
-
-    <a href="#cta"
-      class="rounded-full bg-primary px-6 py-3 text-sm font-bold text-on-primary shadow-sm transition-all active:scale-95 active:opacity-80">
-      Commencer
-    </a>
   </header>
 
-  <main class="overflow-hidden pt-24">
-    <section class="relative mx-auto flex min-h-[751px] max-w-7xl items-center px-6 py-12">
+  <main class="overflow-hidden pt-36 md:pt-24">
+    <section class="relative mx-auto flex min-h-[auto] max-w-7xl items-center px-4 py-10 sm:px-6 sm:py-12 lg:min-h-[751px]">
       <div class="grid items-center gap-12 lg:grid-cols-2">
         <div class="z-10">
           <div
-            class="mb-6 inline-flex items-center gap-2 rounded-full bg-secondary-container px-4 py-2 text-xs font-bold text-on-secondary-fixed">
+            class="mb-6 inline-flex max-w-full items-center gap-2 rounded-full bg-secondary-container px-4 py-2 text-[11px] font-bold text-on-secondary-fixed sm:text-xs">
             <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">eco</span>
             CROISSANCE VALIDEE CLINIQUEMENT
           </div>
 
-          <h1 class="mb-6 font-headline text-5xl font-extrabold leading-tight text-on-background lg:text-7xl">
+          <h1 class="mb-6 font-headline text-4xl font-extrabold leading-tight text-on-background sm:text-5xl lg:text-7xl">
             ANIS : Apprendre a gerer <span class="italic text-primary">les addictions</span> de maniere interactive
           </h1>
 
-          <p class="mb-10 max-w-xl text-lg leading-relaxed text-on-surface-variant">
+          <p class="mb-10 max-w-xl text-base leading-relaxed text-on-surface-variant sm:text-lg">
             ANIS est une plateforme interactive qui vous aide a comprendre les addictions grace a des modules ludiques,
             des quiz et un systeme de progression motivant, tout en garantissant votre anonymat.
           </p>
 
-          <div class="flex flex-wrap gap-4">
+          <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
             <a href="#services"
-              class="rounded-lg bg-primary px-8 py-4 text-lg font-bold text-on-primary shadow-lg shadow-primary/20 transition-all hover:bg-primary-dim">
+              class="w-full rounded-lg bg-primary px-8 py-4 text-center text-base font-bold text-on-primary shadow-lg shadow-primary/20 transition-all hover:bg-primary-dim sm:w-auto sm:text-lg">
               Debuter mon parcours
             </a>
             <a href="#about"
-              class="rounded-lg bg-surface-container-highest px-8 py-4 text-lg font-bold text-primary transition-all hover:bg-surface-container-high">
+              class="w-full rounded-lg bg-surface-container-highest px-8 py-4 text-center text-base font-bold text-primary transition-all hover:bg-surface-container-high sm:w-auto sm:text-lg">
               Voir les ressources
             </a>
           </div>
         </div>
 
-        <div class="relative">
-          <div class="relative z-10 overflow-hidden rounded-xl shadow-2xl rotate-2">
-            <img class="h-[500px] w-full object-cover" alt="Illustration ANIS" src="{{ asset('images/img1.jpg') }}" />
+        <div class="relative order-first lg:order-none">
+          <div class="relative z-10 overflow-hidden rounded-xl shadow-2xl lg:rotate-2">
+            <img class="h-[320px] w-full object-cover sm:h-[420px] lg:h-[500px]" alt="Illustration ANIS" src="{{ asset('images/img1.jpg') }}" />
           </div>
-          <div class="absolute -right-10 -top-10 -z-0 h-64 w-64 rounded-full bg-primary-container/30 blur-3xl"></div>
-          <div class="absolute -bottom-10 -left-10 -z-0 h-48 w-48 rounded-full bg-secondary-container/20 blur-2xl"></div>
+          <div class="absolute -right-4 -top-4 -z-0 h-32 w-32 rounded-full bg-primary-container/30 blur-3xl sm:-right-10 sm:-top-10 sm:h-64 sm:w-64"></div>
+          <div class="absolute -bottom-6 -left-4 -z-0 h-24 w-24 rounded-full bg-secondary-container/20 blur-2xl sm:-bottom-10 sm:-left-10 sm:h-48 sm:w-48"></div>
         </div>
       </div>
     </section>
 
-    <section class="bg-surface-container-low px-6 py-24" id="about">
+    <section class="bg-surface-container-low px-4 py-20 sm:px-6 sm:py-24" id="about">
       <div class="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-12">
-        <div class="grid grid-cols-2 gap-4 lg:col-span-7">
+        <div class="grid gap-4 sm:grid-cols-2 lg:col-span-7">
           <div class="space-y-4">
-            <div class="h-64 overflow-hidden rounded-lg shadow-sm">
+            <div class="h-56 overflow-hidden rounded-lg shadow-sm sm:h-64">
               <img class="h-full w-full object-cover" alt="Session clinique de groupe"
                 src="{{ asset('images/unnamed (1).png') }}" />
             </div>
-            <div class="h-80 overflow-hidden rounded-lg shadow-md">
+            <div class="h-64 overflow-hidden rounded-lg shadow-md sm:h-80">
               <img class="h-full w-full object-cover" alt="Conversation de soutien"
                 src="{{ asset('images/unnamed (2).png') }}" />
             </div>
           </div>
-          <div class="pt-12">
-            <div class="h-full overflow-hidden rounded-lg shadow-lg">
+          <div class="sm:pt-12">
+            <div class="h-64 overflow-hidden rounded-lg shadow-lg sm:h-full">
               <img class="h-full w-full object-cover" alt="Collaboration creative"
                 src="{{ asset('images/unnamed (3).png') }}" />
             </div>
@@ -186,7 +195,7 @@
         </div>
 
         <div class="lg:col-span-5">
-          <h2 class="mb-6 font-headline text-4xl font-extrabold text-on-background">
+          <h2 class="mb-6 font-headline text-3xl font-extrabold text-on-background sm:text-4xl">
             Enracine dans le soin, porte par l'innovation.
           </h2>
           <p class="mb-8 leading-relaxed text-on-surface-variant">
@@ -215,9 +224,9 @@
       </div>
     </section>
 
-    <section class="bg-botanical-blob mx-auto max-w-7xl px-6 py-24" id="services">
+    <section class="bg-botanical-blob mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24" id="services">
       <div class="mb-16 text-center">
-        <h2 class="mb-4 font-headline text-4xl font-extrabold">Nos Services</h2>
+        <h2 class="mb-4 font-headline text-3xl font-extrabold sm:text-4xl">Nos Services</h2>
         <p class="mx-auto max-w-2xl text-on-surface-variant">
           Des structures de soutien sur mesure pour vous accompagner la ou vous en etes.
         </p>
@@ -274,15 +283,15 @@
       </div>
     </section>
 
-    <section class="mx-auto max-w-7xl px-6 py-24" id="team">
+    <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24" id="team">
       <div class="mb-16 text-center">
-        <h2 class="mb-4 font-headline text-4xl font-extrabold text-on-background">Les Jardiniers de la Croissance</h2>
+        <h2 class="mb-4 font-headline text-3xl font-extrabold text-on-background sm:text-4xl">Les Jardiniers de la Croissance</h2>
         <p class="mx-auto max-w-2xl text-on-surface-variant">
           Rencontrez nos cliniciens et mentors devoues a votre progression.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 gap-12 text-center md:grid-cols-4">
+      <div class="grid grid-cols-1 gap-12 text-center min-[480px]:grid-cols-2 md:grid-cols-4">
         <div class="flex flex-col items-center">
           <div class="mb-6 h-32 w-32 overflow-hidden rounded-full border-4 border-primary-container/30">
             <img class="h-full w-full object-cover" alt="Dr. Sarah Chen" src="{{ asset('images/unnamed (4).png') }}" />
@@ -317,22 +326,22 @@
       </div>
     </section>
 
-    <section class="bg-surface-container-low px-6 py-24">
+    <section class="bg-surface-container-low px-4 py-20 sm:px-6 sm:py-24">
       <div class="mx-auto max-w-7xl">
         <div class="grid gap-8 lg:grid-cols-3">
-          <div class="lg:col-span-2 flex min-h-[400px] flex-col justify-between rounded-lg bg-primary p-12 text-on-primary">
-            <h2 class="max-w-md font-headline text-4xl font-extrabold leading-tight">
+          <div class="lg:col-span-2 flex min-h-[320px] flex-col justify-between rounded-lg bg-primary p-8 text-on-primary sm:min-h-[400px] sm:p-12">
+            <h2 class="max-w-md font-headline text-3xl font-extrabold leading-tight sm:text-4xl">
               Notre engagement pour votre confidentialite
             </h2>
-            <div class="flex items-end justify-between gap-6">
-              <p class="max-w-sm text-lg opacity-90">
+            <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <p class="max-w-sm text-base opacity-90 sm:text-lg">
                 Nous utilisons un haut niveau de protection pour securiser votre parcours personnel.
               </p>
-              <span class="material-symbols-outlined text-7xl opacity-20">verified_user</span>
+              <span class="material-symbols-outlined text-6xl opacity-20 sm:text-7xl">verified_user</span>
             </div>
           </div>
 
-          <div class="flex flex-col justify-center rounded-lg bg-surface-container-lowest p-12 shadow-sm">
+          <div class="flex flex-col justify-center rounded-lg bg-surface-container-lowest p-8 shadow-sm sm:p-12">
             <h3 class="mb-4 font-headline text-2xl font-bold">Urgence 24h/24</h3>
             <p class="mb-8 text-on-surface-variant">
               Accedez immediatement a une assistance via notre portail clinique securise.
@@ -346,21 +355,21 @@
       </div>
     </section>
 
-    <section class="px-6 py-24" id="cta">
-      <div class="mx-auto max-w-5xl rounded-lg bg-surface-container-highest/50 p-12 text-center">
-        <h2 class="mb-6 font-headline text-4xl font-extrabold">Pret a commencer votre croissance ?</h2>
-        <p class="mx-auto mb-10 max-w-2xl text-lg text-on-surface-variant">
+    <section class="px-4 py-20 sm:px-6 sm:py-24" id="cta">
+      <div class="mx-auto max-w-5xl rounded-lg bg-surface-container-highest/50 p-8 text-center sm:p-12">
+        <h2 class="mb-6 font-headline text-3xl font-extrabold sm:text-4xl">Pret a commencer votre croissance ?</h2>
+        <p class="mx-auto mb-10 max-w-2xl text-base text-on-surface-variant sm:text-lg">
           Rejoignez l'ecosysteme ANIS aujourd'hui et commencez votre parcours personnalise vers un mieux-etre durable.
         </p>
         <a href="#"
-          class="inline-flex rounded-lg bg-primary px-10 py-5 text-xl font-bold text-on-primary shadow-xl shadow-primary/30 transition-all active:scale-95">
+          class="inline-flex w-full justify-center rounded-lg bg-primary px-8 py-4 text-lg font-bold text-on-primary shadow-xl shadow-primary/30 transition-all active:scale-95 sm:w-auto sm:px-10 sm:py-5 sm:text-xl">
           S'inscrire gratuitement
         </a>
       </div>
     </section>
   </main>
 
-  <footer class="mt-auto bg-[#eff1f2] px-6 py-12">
+  <footer class="mt-auto bg-[#eff1f2] px-4 py-12 sm:px-6">
     <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 md:flex-row">
       <div class="flex flex-col items-center gap-4 md:items-start">
         <div class="flex items-center gap-2">

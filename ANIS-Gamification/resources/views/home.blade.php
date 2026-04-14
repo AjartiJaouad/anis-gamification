@@ -392,7 +392,7 @@
             Prêt à commencer votre transformation ?
         </h2>
         <p class="mx-auto mb-10 max-w-2xl text-base text-on-surface-variant sm:text-lg">
-            Rejoignez ANIS dès aujourd’hui et entamez un parcours personnalisé vers un mieux-être durable.
+            Rejoignez ANIS dès aujourdhui et entamez un parcours personnalisé vers un mieux-être durable.
         </p>
         <a href="#"
             class="inline-flex w-full justify-center rounded-lg bg-primary px-8 py-4 text-lg font-bold text-on-primary shadow-xl shadow-primary/30 transition-all hover:scale-105 active:scale-95 sm:w-auto sm:px-10 sm:py-5 sm:text-xl">

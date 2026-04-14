@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('pseudonym')->unique();
             $table->string('email')->nullable()->unique();
+            $table->string('password')->nullable();
 
 
         });

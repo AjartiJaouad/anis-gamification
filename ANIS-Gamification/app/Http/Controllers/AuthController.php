@@ -15,7 +15,7 @@ class AuthController extends Controller
         $request->validate([
             'pseudo' => 'required|string|max:255|unique:users,pseudo',
             'email' => 'nullable|email|unique:users,email',
-            'password' => 'required|min:6|confirmed'
+           'password' => \Illuminate\Support\Facades\Hash::make($request->password),
         ]);
 
         $user = User::create([

@@ -6,25 +6,33 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('name')->nullable();
+
+            // rename name → pseudonym
+            $table->renameColumn('name', 'pseudonym');
+
+            // email optional
+            $table->string('email')->nullable()->change();
+
+            // password optional
+            $table->string('password')->nullable()->change();
+
+            // add anonymous column
+            $table->boolean('is_anonymous')->default(true);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-        $table->string('name')->nullable();
-        $table->string('email')->nullable()->unique();
-        $table->boolean('is_anonymous')->default(true);
+
+            $table->renameColumn('pseudonym', 'name');
+            $table->string('email')->nullable(false)->change();
+            $table->string('password')->nullable(false)->change();
+
+            $table->dropColumn('is_anonymous');
         });
     }
 };

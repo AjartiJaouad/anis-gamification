@@ -22,13 +22,21 @@ return new class extends Migration
         // password optional
         $table->string('password')->nullable()->change();
 
+                $table->boolean('is_anonymous')->default(true);
+
     });
 }
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        //
-    }
-};
+  public function down(): void
+{
+    Schema::table('users', function (Blueprint $table) {
+
+        $table->renameColumn('pseudonym', 'name');
+        $table->string('email')->nullable(false)->change();
+        $table->string('password')->nullable(false)->change();
+
+        $table->dropColumn('is_anonymous');
+    });
+}

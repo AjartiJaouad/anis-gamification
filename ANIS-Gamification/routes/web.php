@@ -7,8 +7,9 @@ Route::get('/', function () {
     return view('home');
 });
 
+// Auth Routes
 Route::get('/register', function () {
-    return view('auth.register');
+    return view('register');
 });
 
 Route::post('/register', [AuthController::class, 'register']);

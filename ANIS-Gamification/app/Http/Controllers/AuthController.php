@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -22,7 +21,7 @@ class AuthController extends Controller
         $user = User::create([
             'pseudo' => $request->pseudo,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             'is_anonymous' => is_null($request->email),
             'xp_total' => 0,
             'streak_days' => 0

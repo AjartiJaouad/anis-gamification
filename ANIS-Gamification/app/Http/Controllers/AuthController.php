@@ -26,7 +26,7 @@ class AuthController extends Controller
             'pseudo' => $request->pseudo,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'is_anonymous' => true,
+            'is_anonymous' => is_null($request->email),
             'xp_total' => 0,
             'streak_days' => 0
         ]);

@@ -44,7 +44,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Identifiants invalides.'], 401);
         }
 
-        $user = Auth::user();
+        $user = Auth::user() ?? User::where('pseudo', $request->pseudo)->first();
 
         return response()->json([
             'token' => $user->createToken('api')->plainTextToken,

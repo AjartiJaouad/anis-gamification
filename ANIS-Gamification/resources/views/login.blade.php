@@ -115,7 +115,7 @@
                 <p class="text-on-surface-variant text-sm mt-1">Sign in to continue your journey.</p>
             </header>
 
-            <form action="{{ route('login') }}" method="POST" class="space-y-6">
+            <form action="{{ route('login.post') }}" method="POST" class="space-y-6">
                 @csrf
 
                 @if($errors->any())

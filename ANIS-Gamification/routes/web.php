@@ -12,12 +12,12 @@ Route::get('/login',    [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login',   [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
 
-// User dashboard
+// User dashboard - auth فقط
 Route::get('/dashboard', fn() => view('dashboard'))
     ->middleware('auth')
     ->name('dashboard');
 
-// Admin dashboard
+// Admin dashboard - auth + admin فقط
 Route::get('/admin/dashboard', fn() => view('admin.dashboard'))
-    ->middleware('auth')
+    ->middleware('admin')
     ->name('admin.dashboard');

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\LevelController;
 
 Route::get('/', fn() => view('home'));
 
@@ -17,7 +18,9 @@ Route::get('/dashboard', fn() => view('dashboard'))
     ->middleware('auth')
     ->name('dashboard');
 
-// Admin dashboard - auth + admin فقط
-Route::get('/admin/dashboard', fn() => view('admin.dashboard'))
-    ->middleware('admin')
-    ->name('admin.dashboard');
+Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', fn() => view('admin.dashboard'))
+        ->name('dashboard');
+
+    Route::resource('levels', LevelController::class)->except(['show']);
+});

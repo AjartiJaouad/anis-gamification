@@ -111,7 +111,7 @@
                     </button>
 
                     <p class="text-center text-sm text-gray-500">
-                        Déjà un compte ? <a href="#" class="text-primary font-bold hover:underline">Connexion</a>
+                        Déjà un compte ? <a href="{{ route('login') }}" class="text-primary font-bold hover:underline">Connexion</a>
                     </p>
                 </form>
             </div>

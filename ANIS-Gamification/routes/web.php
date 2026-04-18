@@ -24,9 +24,9 @@ Route::get('/dashboard', fn() => view('dashboard'))
 
 Route::middleware('auth')->group(function () {
     Route::get('/quizzes', [UserQuizController::class, 'index'])->name('quizzes.index');
-    Route::get('/quizzes/levels/{level}', [UserQuizController::class, 'showLevel'])->name('quizzes.level');
-    Route::get('/quizzes/levels/{level}/quiz/{quiz}', [UserQuizController::class, 'play'])->name('quizzes.play');
-    Route::post('/quizzes/levels/{level}/quiz/{quiz}/complete', [UserQuizController::class, 'complete'])->name('quizzes.complete');
+    Route::get('/quizzes/{quiz}', [UserQuizController::class, 'show'])->name('quizzes.show');
+    Route::get('/quizzes/{quiz}/difficulty/{difficulty}', [UserQuizController::class, 'play'])->name('quizzes.play');
+    Route::post('/quizzes/{quiz}/difficulty/{difficulty}/complete', [UserQuizController::class, 'complete'])->name('quizzes.complete');
 });
 
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {

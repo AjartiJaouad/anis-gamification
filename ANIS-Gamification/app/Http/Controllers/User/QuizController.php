@@ -3,66 +3,49 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Level;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         $user = $request->user();
-        $levels = Level::orderBy('difficulty')->get();
+        $quizzes = Quiz::orderBy('created_at', 'desc')->get();
         $unlockedDifficulty = $user->highest_unlocked_difficulty ?? 1;
 
-        return view('quizzes.index', compact('levels', 'unlockedDifficulty'));
+        return view('quizzes.index', compact('quizzes', 'unlockedDifficulty'));
     }
 
-    public function showLevel(Request $request, Level $level)
+    public function show(Request $request, Quiz $quiz)
+    {
+        $user = $request->user();
+        $availableDifficulties = $quiz->questions()
+            ->with('level')
+            ->get()
+            ->pluck('level.difficulty')
+            ->filter()
+            ->unique()
+            ->sort()
+            ->values()
+            ->all();
+        $unlockedDifficulty = $user->highest_unlocked_difficulty ?? 1;
+
+        return view('quizzes.show', compact('quiz', 'availableDifficulties', 'unlockedDifficulty'));
+    }
+
+    public function play(Request $request, Quiz $quiz, int $difficulty)
     {
         $user = $request->user();
 
-        if ($level->difficulty > ($user->highest_unlocked_difficulty ?? 1)) {
+        if ($difficulty > ($user->highest_unlocked_difficulty ?? 1)) {
             abort(403);
-        }
-
-        $quizzes = Quiz::whereHas('questions.level', function ($query) use ($level) {
-            $query->where('difficulty', $level->difficulty);
-        })
-        ->withCount(['questions as questions_for_level_count' => function ($query) use ($level) {
-            $query->whereHas('level', function ($query) use ($level) {
-                $query->where('difficulty', $level->difficulty);
-            });
-        }])
-        ->orderBy('title')
-        ->get();
-
-        return view('quizzes.level', compact('level', 'quizzes'));
-    }
-
-    public function play(Request $request, Level $level, Quiz $quiz)
-    {
-        $user = $request->user();
-
-        if ($level->difficulty > ($user->highest_unlocked_difficulty ?? 1)) {
-            abort(403);
-        }
-
-        if (! $quiz->questions()->whereHas('level', function ($query) use ($level) {
-            $query->where('difficulty', $level->difficulty);
-        })->exists()) {
-            abort(404);
         }
 
         $questions = $quiz->questions()
-            ->with(['options'])
-            ->whereHas('level', function ($query) use ($level) {
-                $query->where('difficulty', $level->difficulty);
+            ->with(['options', 'level'])
+            ->whereHas('level', function ($query) use ($difficulty) {
+                $query->where('difficulty', $difficulty);
             })
             ->get();
 
@@ -70,17 +53,31 @@ class QuizController extends Controller
             abort(404);
         }
 
+        $questionsJson = $questions->map(function ($question) {
+            return [
+                'id' => $question->id,
+                'question' => $question->question,
+                'options' => $question->options->map(function ($option) {
+                    return [
+                        'id' => $option->id,
+                        'text' => $option->option_text,
+                        'is_correct' => $option->is_correct,
+                    ];
+                })->values()->toArray(),
+            ];
+        })->toArray();
+
         $totalTime = $quiz->duration_minutes * 60;
         $perQuestionTime = max(5, (int) floor($totalTime / $questions->count()));
 
-        return view('quizzes.play', compact('quiz', 'level', 'questions', 'totalTime', 'perQuestionTime'));
+        return view('quizzes.play', compact('quiz', 'questions', 'questionsJson', 'difficulty', 'totalTime', 'perQuestionTime'));
     }
 
-    public function complete(Request $request, Level $level, Quiz $quiz)
+    public function complete(Request $request, Quiz $quiz, int $difficulty)
     {
         $user = $request->user();
 
-        if ($level->difficulty > ($user->highest_unlocked_difficulty ?? 1)) {
+        if ($difficulty > ($user->highest_unlocked_difficulty ?? 1)) {
             abort(403);
         }
 
@@ -90,9 +87,9 @@ class QuizController extends Controller
         }
 
         $questions = $quiz->questions()
-            ->with(['options'])
-            ->whereHas('level', function ($query) use ($level) {
-                $query->where('difficulty', $level->difficulty);
+            ->with(['options', 'level'])
+            ->whereHas('level', function ($query) use ($difficulty) {
+                $query->where('difficulty', $difficulty);
             })
             ->get();
 
@@ -112,14 +109,14 @@ class QuizController extends Controller
         $passed = $questions->count() > 0 && ($correctCount / $questions->count()) >= 0.5;
         $unlockedMessage = null;
 
-        if ($passed && ($user->highest_unlocked_difficulty ?? 1) === $level->difficulty) {
-            $nextLevel = Level::where('difficulty', '>', $level->difficulty)
+        if ($passed && ($user->highest_unlocked_difficulty ?? 1) === $difficulty) {
+            $nextLevel = Quiz::where('difficulty', '>', $difficulty)
                 ->orderBy('difficulty')
                 ->first();
 
             if ($nextLevel) {
                 $user->highest_unlocked_difficulty = $nextLevel->difficulty;
-                $unlockedMessage = "Niveau suivant débloqué : difficulté {$nextLevel->difficulty}.";
+                $unlockedMessage = "Difficulté suivante débloquée : {$nextLevel->difficulty}.";
             }
         }
 

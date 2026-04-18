@@ -28,6 +28,7 @@ class QuizController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255|unique:quizzes,title',
             'description' => 'nullable|string|max:1000',
+            'difficulty' => 'required|integer|min:1|max:10',
             'questions_count' => 'required|integer|min:1|max:100',
             'duration_minutes' => 'required|integer|min:1|max:240',
         ]);
@@ -53,6 +54,7 @@ class QuizController extends Controller
                 Rule::unique('quizzes', 'title')->ignore($quiz->id),
             ],
             'description' => 'nullable|string|max:1000',
+            'difficulty' => 'required|integer|min:1|max:10',
             'questions_count' => 'required|integer|min:1|max:100',
             'duration_minutes' => 'required|integer|min:1|max:240',
         ]);

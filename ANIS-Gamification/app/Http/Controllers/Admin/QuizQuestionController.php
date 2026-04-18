@@ -35,11 +35,13 @@ class QuizQuestionController extends Controller
             'question' => $data['question'],
         ]);
 
+        $correctIndexes = array_map(intval(...), $data['correct_options']);
+
         $optionPayload = [];
         foreach ($data['options'] as $index => $optionText) {
             $optionPayload[] = [
                 'option_text' => $optionText,
-                'is_correct' => in_array($index, $data['correct_options'], true),
+                'is_correct' => in_array((int) $index, $correctIndexes, true),
             ];
         }
 
@@ -73,11 +75,13 @@ class QuizQuestionController extends Controller
         $question->update(['question' => $data['question']]);
         $question->options()->delete();
 
+        $correctIndexes = array_map(intval(...), $data['correct_options']);
+
         $optionPayload = [];
         foreach ($data['options'] as $index => $optionText) {
             $optionPayload[] = [
                 'option_text' => $optionText,
-                'is_correct' => in_array($index, $data['correct_options'], true),
+                'is_correct' => in_array((int) $index, $correctIndexes, true),
             ];
         }
 

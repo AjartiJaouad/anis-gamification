@@ -23,7 +23,7 @@ class QuestionController extends Controller
     public function create()
     {
         $quizzes = Quiz::withCount(['questions as created_questions_count'])->orderBy('title')->get();
-        $levels = Level::orderBy('name')->get();
+        $levels = Level::orderBy('difficulty')->get();
 
         return view('admin.questions.create', compact('quizzes', 'levels'));
     }
@@ -54,11 +54,13 @@ class QuestionController extends Controller
             'question' => $data['question'],
         ]);
 
+        $correctIndexes = array_map(intval(...), $data['correct_options']);
+
         $options = [];
         foreach ($data['options'] as $index => $text) {
             $options[] = [
                 'option_text' => $text,
-                'is_correct' => in_array($index, $data['correct_options'], true),
+                'is_correct' => in_array((int) $index, $correctIndexes, true),
             ];
         }
 
@@ -71,7 +73,7 @@ class QuestionController extends Controller
     public function edit(QuizQuestion $question)
     {
         $quizzes = Quiz::withCount(['questions as created_questions_count'])->orderBy('title')->get();
-        $levels = Level::orderBy('name')->get();
+        $levels = Level::orderBy('difficulty')->get();
 
         $question->load('options');
 
@@ -106,11 +108,13 @@ class QuestionController extends Controller
 
         $question->options()->delete();
 
+        $correctIndexes = array_map(intval(...), $data['correct_options']);
+
         $options = [];
         foreach ($data['options'] as $index => $text) {
             $options[] = [
                 'option_text' => $text,
-                'is_correct' => in_array($index, $data['correct_options'], true),
+                'is_correct' => in_array((int) $index, $correctIndexes, true),
             ];
         }
 

@@ -55,7 +55,7 @@
         <div class="mx-auto max-w-7xl flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
                 <p class="text-sm text-on-surface-variant">Admin • Modifier un niveau</p>
-                <h1 class="mt-2 text-3xl font-headline font-extrabold text-on-surface">Modifier {{ $level->name }}</h1>
+                <h1 class="mt-2 text-3xl font-headline font-extrabold text-on-surface">Modifier difficulté {{ $level->difficulty }}</h1>
             </div>
             <a href="{{ route('admin.levels.index') }}" class="rounded-full border border-surface-container bg-surface px-4 py-2 text-sm font-semibold text-on-surface hover:border-primary hover:text-primary transition">
                 Retour à la liste
@@ -70,28 +70,10 @@
                 @method('PUT')
 
                 <div>
-                    <label for="name" class="block text-sm font-semibold text-on-surface">Nom du niveau</label>
-                    <input id="name" name="name" value="{{ old('name', $level->name) }}" type="text" required
-                        class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
-                    @error('name')
-                        <p class="mt-2 text-sm text-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
                     <label for="difficulty" class="block text-sm font-semibold text-on-surface">Difficulté</label>
                     <input id="difficulty" name="difficulty" value="{{ old('difficulty', $level->difficulty) }}" type="number" min="1" max="10" required
                         class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
                     @error('difficulty')
-                        <p class="mt-2 text-sm text-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="description" class="block text-sm font-semibold text-on-surface">Description</label>
-                    <textarea id="description" name="description" rows="5"
-                        class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10">{{ old('description', $level->description) }}</textarea>
-                    @error('description')
                         <p class="mt-2 text-sm text-error">{{ $message }}</p>
                     @enderror
                 </div>

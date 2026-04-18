@@ -71,6 +71,10 @@
                         <span class="material-symbols-outlined">quiz</span>
                         Gestion des quizzes
                     </a>
+                    <a href="{{ route('admin.questions.index') }}" class="flex items-center gap-3 rounded-2xl border border-surface-container bg-white px-4 py-3 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-surface-container-low">
+                        <span class="material-symbols-outlined">help</span>
+                        Gestion des questions
+                    </a>
                 </nav>
             </aside>
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Level;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class LevelController extends Controller
 {
@@ -24,8 +23,6 @@ class LevelController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255|unique:levels,name',
-            'description' => 'nullable|string|max:1000',
             'difficulty' => 'required|integer|min:1|max:10',
         ]);
 
@@ -43,13 +40,6 @@ class LevelController extends Controller
     public function update(Request $request, Level $level)
     {
         $data = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('levels', 'name')->ignore($level->id),
-            ],
-            'description' => 'nullable|string|max:1000',
             'difficulty' => 'required|integer|min:1|max:10',
         ]);
 

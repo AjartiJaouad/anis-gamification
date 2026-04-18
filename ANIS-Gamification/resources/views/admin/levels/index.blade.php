@@ -85,7 +85,6 @@
                 <table class="min-w-full divide-y divide-surface-container">
                     <thead class="bg-surface-container">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Nom</th>
                             <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Difficulté</th>
                             <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Créé le</th>
                             <th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Actions</th>
@@ -94,7 +93,6 @@
                     <tbody class="divide-y divide-surface-container-low bg-white">
                         @forelse($levels as $level)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $level->name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $level->difficulty }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface-variant">{{ $level->created_at->format('d/m/Y') }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -130,7 +128,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-6 py-12 text-center text-sm text-on-surface-variant">Aucun niveau n'a encore été créé.</td>
+                                <td colspan="3" class="px-6 py-12 text-center text-sm text-on-surface-variant">Aucun niveau n'a encore été créé.</td>
                             </tr>
                         @endforelse
                     </tbody>

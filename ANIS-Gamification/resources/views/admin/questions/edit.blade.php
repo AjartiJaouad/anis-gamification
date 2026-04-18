@@ -114,13 +114,13 @@
                             </div>
 
                             <div>
-                                <label for="level_id" class="block text-sm font-semibold text-on-surface">Niveau</label>
+                                <label for="level_id" class="block text-sm font-semibold text-on-surface">Difficulté</label>
                                 <select id="level_id" name="level_id" required
                                     class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10">
-                                    <option value="">Sélectionnez un niveau</option>
+                                    <option value="">Sélectionnez une difficulté</option>
                                     @foreach($levels as $level)
                                         <option value="{{ $level->id }}" {{ old('level_id', $question->level_id) == $level->id ? 'selected' : '' }}>
-                                            {{ $level->name }}
+                                            Difficulté {{ $level->difficulty }}
                                         </option>
                                     @endforeach
                                 </select>

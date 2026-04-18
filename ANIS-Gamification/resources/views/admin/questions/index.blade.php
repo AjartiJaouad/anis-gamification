@@ -118,7 +118,7 @@
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ \Illuminate\Support\Str::limit($question->question, 80) }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $question->quiz->title }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $question->level->name }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">Difficulté {{ $question->level->difficulty }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $question->options->where('is_correct', true)->count() }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex flex-wrap justify-end gap-2">
                                             <a href="{{ route('admin.questions.edit', $question) }}" class="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/5 px-3 py-2 text-primary hover:bg-primary/10 transition">

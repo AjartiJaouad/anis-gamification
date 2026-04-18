@@ -9,14 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+   public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('pseudo')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+
+            $table->boolean('is_anonymous')->default(true);
+            $table->string('role')->default('user'); // 'admin' or 'user'
+            $table->integer('xp_total')->default(0);
+            $table->integer('streak_days')->default(0);
+
             $table->rememberToken();
             $table->timestamps();
         });
@@ -36,7 +42,6 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
     }
-
     /**
      * Reverse the migrations.
      */

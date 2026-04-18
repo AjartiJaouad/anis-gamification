@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\LevelController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizQuestionController;
+use App\Http\Controllers\User\QuizController as UserQuizController;
 
 Route::get('/', fn() => view('home'));
 
@@ -20,6 +21,13 @@ Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
 Route::get('/dashboard', fn() => view('dashboard'))
     ->middleware('auth')
     ->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/quizzes', [UserQuizController::class, 'index'])->name('quizzes.index');
+    Route::get('/quizzes/levels/{level}', [UserQuizController::class, 'showLevel'])->name('quizzes.level');
+    Route::get('/quizzes/levels/{level}/quiz/{quiz}', [UserQuizController::class, 'play'])->name('quizzes.play');
+    Route::post('/quizzes/levels/{level}/quiz/{quiz}/complete', [UserQuizController::class, 'complete'])->name('quizzes.complete');
+});
 
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', fn() => view('admin.dashboard'))

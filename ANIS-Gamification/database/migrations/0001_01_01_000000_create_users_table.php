@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password')->nullable();
 
             $table->boolean('is_anonymous')->default(true);
-            $table->string('role')->default('user');
+            $table->string('role')->default('user'); // 'admin' or 'user'
             $table->integer('xp_total')->default(0);
             $table->integer('streak_days')->default(0);
 

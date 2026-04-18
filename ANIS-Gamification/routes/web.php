@@ -3,24 +3,21 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', fn() => view('home'));
 
-// Auth Routes
+// Auth
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register.show');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/login',    [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login',   [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
 
 // User dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth')->name('dashboard');
+Route::get('/dashboard', fn() => view('dashboard'))
+    ->middleware('auth')
+    ->name('dashboard');
 
 // Admin dashboard
-Route::get('/admin/dashboard', function () {
-    if (!auth()->user()->isAdmin()) abort(403);
-    return view('admin.dashboard');
-})->middleware('auth')->name('admin.dashboard');
+Route::get('/admin/dashboard', fn() => view('admin.dashboard'))
+    ->middleware('auth')
+    ->name('admin.dashboard');

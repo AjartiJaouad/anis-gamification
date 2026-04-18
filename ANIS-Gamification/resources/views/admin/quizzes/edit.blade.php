@@ -111,6 +111,15 @@
                         </div>
 
                         <div>
+                            <label for="difficulty" class="block text-sm font-semibold text-on-surface">Difficulté</label>
+                            <input id="difficulty" name="difficulty" type="number" min="1" max="10" value="{{ old('difficulty', $quiz->difficulty) }}" required
+                                class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
+                            @error('difficulty')
+                                <p class="mt-2 text-sm text-error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
                             <label for="questions_count" class="block text-sm font-semibold text-on-surface">Nombre de questions</label>
                             <input id="questions_count" name="questions_count" type="number" min="1" max="100" value="{{ old('questions_count', $quiz->questions_count) }}" required
                                 class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />

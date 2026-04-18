@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Cast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['title', 'description', 'questions_count', 'duration_minutes'])]
+#[Fillable(['title', 'description', 'questions_count', 'duration_minutes', 'difficulty'])]
 class Quiz extends Model
 {
     use HasFactory;
@@ -17,6 +17,7 @@ class Quiz extends Model
         return [
             'questions_count' => 'integer',
             'duration_minutes' => 'integer',
+            'difficulty' => 'integer',
         ];
     }
 

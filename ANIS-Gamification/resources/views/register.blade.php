@@ -72,7 +72,7 @@
                     <div class="space-y-2">
                         <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">Pseudonyme</label>
                         <div class="relative">
-                            <input type="text" name="pseudo" value="{{ old('pseudo') }}"
+                            <input type="text" name="pseudo" value="{{ old('pseudo') }}" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+"
                                 class="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary transition-all"
                                 placeholder="ex: SilverFern42" required>
                             <span class="material-symbols-outlined absolute right-3 top-3 text-gray-400 text-sm">face</span>
@@ -96,6 +96,7 @@
                             <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">Mot de passe</label>
                             <input type="password" name="password"
                                 class="w-full bg-gray-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary transition-all" required>
+                            <p class="text-xs text-gray-500">Min. 8 caractères, 1 majuscule et 1 chiffre.</p>
                         </div>
                         <div class="space-y-2">
                             <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">Confirmer</label>
@@ -105,6 +106,17 @@
                         </div>
                         @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
+
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" name="stay_anonymous" value="1" class="mt-1 rounded border-gray-300 text-primary focus:ring-primary" {{ old('stay_anonymous') ? 'checked' : '' }}>
+                        <span class="text-sm text-gray-600">Rester totalement anonyme (sans adresse e-mail).</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" name="cgu" value="1" class="mt-1 rounded border-gray-300 text-primary focus:ring-primary" {{ old('cgu') ? 'checked' : '' }}>
+                        <span class="text-sm text-gray-600">J’accepte les conditions d’utilisation.</span>
+                    </label>
+                    @error('cgu') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
 
                     <button type="submit" class="w-full bg-gradient-to-r from-primary to-primary-dim text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-[0.98] mt-4">
                         S'enregistrer anonymement

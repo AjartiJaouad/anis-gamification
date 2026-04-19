@@ -48,7 +48,11 @@
                 <span class="material-symbols-outlined text-2xl text-primary">local_florist</span>
                 <span class="font-headline font-black text-xl text-primary">ANIS</span>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 flex-wrap justify-end">
+                <a href="{{ route('profile.edit') }}" class="text-sm font-semibold text-primary hover:underline inline-flex items-center gap-1">
+                    <span class="material-symbols-outlined text-base">person</span>
+                    Profil
+                </a>
                 <span class="text-sm text-on-surface-variant font-medium">
                     Bonjour, <span class="font-bold text-primary">{{ auth()->user()->pseudo }}</span>
                 </span>

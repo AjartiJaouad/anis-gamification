@@ -102,6 +102,11 @@
 </head>
 
 <body class="bg-background font-body text-on-background">
+    @if(session('success'))
+        <div class="fixed inset-x-0 top-0 z-[60] bg-primary/90 px-4 py-3 text-center text-sm font-semibold text-white">
+            {{ session('success') }}
+        </div>
+    @endif
     <header class="fixed inset-x-0 top-0 z-50 bg-[#f5f6f7]/90 backdrop-blur-xl">
         <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
             <div class="flex items-center gap-2">

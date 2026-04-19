@@ -126,25 +126,29 @@
                 @endif
 
                 <div class="space-y-2">
-                    <label class="block font-label font-bold text-xs uppercase tracking-wider text-on-surface-variant ml-1" for="pseudo">Pseudonym</label>
+                    <label class="block font-label font-bold text-xs uppercase tracking-wider text-on-surface-variant ml-1" for="login">Pseudo ou e-mail</label>
                     <div class="relative">
                         <input
                             class="w-full bg-surface-container-low border-none rounded-sm px-4 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:text-outline-variant"
-                            id="pseudo"
-                            name="pseudo"
-                            value="{{ old('pseudo') }}"
-                            placeholder="The_Silent_Gardener"
+                            id="login"
+                            name="login"
+                            value="{{ old('login') }}"
+                            placeholder="Pseudo ou votre e-mail"
                             type="text"
                             required
+                            autocomplete="username"
                         />
                         <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline-variant text-xl">person</span>
                     </div>
+                    @error('login')
+                        <p class="text-error text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="space-y-2">
                     <div class="flex justify-between items-center px-1">
-                        <label class="block font-label font-bold text-xs uppercase tracking-wider text-on-surface-variant" for="password">Password</label>
-                        <a class="text-primary font-label font-bold text-xs hover:underline decoration-2 underline-offset-4" href="#">Forgot Password?</a>
+                        <label class="block font-label font-bold text-xs uppercase tracking-wider text-on-surface-variant" for="password">Mot de passe</label>
+                        <span class="text-on-surface-variant font-label text-xs opacity-60">Mot de passe oublié&nbsp;: bientôt</span>
                     </div>
                     <div class="relative">
                         <input
@@ -154,13 +158,19 @@
                             placeholder="••••••••"
                             type="password"
                             required
+                            autocomplete="current-password"
                         />
                         <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline-variant text-xl">lock</span>
                     </div>
                 </div>
 
+                <label class="flex items-center gap-3 px-1 cursor-pointer">
+                    <input type="checkbox" name="remember" value="1" class="rounded border-outline-variant text-primary focus:ring-primary/20" {{ old('remember') ? 'checked' : '' }}>
+                    <span class="text-sm font-medium text-on-surface-variant">Se souvenir de moi</span>
+                </label>
+
                 <button class="w-full bg-gradient-to-br from-primary to-primary-dim text-on-primary font-headline font-bold py-4 rounded-lg shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
-                    Login
+                    Connexion
                     <span class="material-symbols-outlined text-xl">arrow_forward</span>
                 </button>
             </form>

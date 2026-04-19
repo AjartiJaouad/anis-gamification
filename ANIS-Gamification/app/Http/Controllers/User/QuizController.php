@@ -103,10 +103,20 @@ class QuizController extends Controller
             }
         }
 
-        $xpGained = $correctCount * 10;
-        $user->xp_total += $xpGained;
+        $totalQuestions = $questions->count();
+        $ratio = $totalQuestions > 0 ? $correctCount / $totalQuestions : 0;
+        $passed = $totalQuestions > 0 && $ratio >= 0.7;
 
-        $passed = $questions->count() > 0 && ($correctCount / $questions->count()) >= 0.5;
+        $xpGained = 0;
+        if ($passed) {
+            $xpGained += 100;
+            if ($correctCount === $totalQuestions) {
+                $xpGained += 50;
+            }
+        }
+
+        $user->xp_total = (int) $user->xp_total + $xpGained;
+
         $unlockedMessage = null;
 
         if ($passed && ($user->highest_unlocked_difficulty ?? 1) === $difficulty) {
@@ -122,9 +132,17 @@ class QuizController extends Controller
 
         $user->save();
 
-        $message = "Quiz terminé : $correctCount / {$questions->count()} réponses correctes. Vous gagnez $xpGained XP.";
+        if ($passed) {
+            $message = "Quiz réussi ($correctCount / $totalQuestions) — au moins 70 %. ";
+            $message .= "XP gagnés : $xpGained";
+            if ($correctCount === $totalQuestions) {
+                $message .= ' (bonus score parfait inclus).';
+            }
+        } else {
+            $message = "Quiz non validé ($correctCount / $totalQuestions) — il faut au moins 70 % de bonnes réponses. +0 XP pour cette tentative.";
+        }
         if ($unlockedMessage) {
-            $message .= ' ' . $unlockedMessage;
+            $message .= ' '.$unlockedMessage;
         }
 
         return redirect()->route('dashboard')->with('success', $message);

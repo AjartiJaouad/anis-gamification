@@ -194,7 +194,7 @@ Revoir les réponses
 <span class="material-symbols-outlined mb-1">military_tech</span>
 <span class="font-['Inter'] font-bold text-[10px]">Badges</span>
 </a>
-<a class="flex flex-col items-center justify-center text-[#abadae] px-5 py-1.5 hover:text-[#89379f] transition-all active:scale-90 duration-300 ease-out" href="{{ route('dashboard') }}">
+<a class="flex flex-col items-center justify-center text-[#abadae] px-5 py-1.5 hover:text-[#89379f] transition-all active:scale-90 duration-300 ease-out" href="{{ route('profile.edit') }}">
 <span class="material-symbols-outlined mb-1">person</span>
 <span class="font-['Inter'] font-bold text-[10px]">Profil</span>
 </a>

@@ -75,7 +75,7 @@
             <aside class="space-y-6">
                 <div class="rounded-3xl border border-surface-container bg-white p-6 shadow-sm">
                     <h2 class="text-lg font-semibold text-on-surface">Note</h2>
-                    <p class="mt-4 text-sm text-on-surface-variant">Les difficultés verrouillées sont débloquées en réussissant au moins 50% du quiz au niveau précédent.</p>
+                    <p class="mt-4 text-sm text-on-surface-variant">Les difficultés verrouillées sont débloquées en réussissant au moins 70&nbsp;% du quiz au niveau précédent.</p>
                 </div>
                 <div class="rounded-3xl border border-surface-container bg-white p-6 shadow-sm">
                     <h2 class="text-lg font-semibold text-on-surface">Progression actuelle</h2>

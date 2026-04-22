@@ -14,4 +14,9 @@ class ModuleController extends Controller
 
         return view('admin.modules.index', compact('modules'));
     }
+
+    public function create()
+    {
+        return view('admin.modules.create');
+    }
 }

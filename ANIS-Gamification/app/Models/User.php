@@ -23,7 +23,7 @@ class User extends Authenticatable
         'streak_days',
         'streak_last_counted_on',
         'last_daily_bonus_date',
-        'highest_unlocked_difficulty'
+        'highest_unlocked_difficulty',
     ];
 
     protected $hidden = [
@@ -39,28 +39,31 @@ class User extends Authenticatable
         'last_daily_bonus_date' => 'date',
     ];
 
+    // 🔐 Vérifier admin
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
 
-    //  RELATION AVEC BADGES
+    // 🏅 Relation avec badges
     public function badges()
     {
         return $this->belongsToMany(Badge::class)->withTimestamps();
     }
 
-    //  STREAK SYSTEM 
+    // 🔥 Streak + bonus XP login
     public function recordLoginActivity(): void
     {
         $today = Carbon::today();
         $yesterday = Carbon::yesterday();
 
+        // Bonus XP une fois par jour
         if ($this->last_daily_bonus_date === null || ! $this->last_daily_bonus_date->equalTo($today)) {
             $this->xp_total += 10;
             $this->last_daily_bonus_date = $today;
         }
 
+        // Gestion du streak
         if (! $this->streak_last_counted_on?->equalTo($today)) {
             if ($this->streak_last_counted_on === null) {
                 $this->streak_days = 1;
@@ -74,5 +77,24 @@ class User extends Authenticatable
         }
 
         $this->save();
+    }
+
+    // 🎮 Attribution automatique des badges
+    public function checkBadges(): void
+    {
+        $badges = Badge::all();
+
+        foreach ($badges as $badge) {
+
+            // Badge XP
+            if ($badge->condition_type === 'xp' && $this->xp_total >= $badge->condition_value) {
+                $this->badges()->syncWithoutDetaching([$badge->id]);
+            }
+
+            // Badge Streak
+            if ($badge->condition_type === 'streak' && $this->streak_days >= $badge->condition_value) {
+                $this->badges()->syncWithoutDetaching([$badge->id]);
+            }
+        }
     }
 }

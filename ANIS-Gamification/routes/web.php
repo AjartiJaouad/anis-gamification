@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\LevelController;
+use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizQuestionController;
@@ -44,6 +45,7 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
         ->name('dashboard');
 
     Route::resource('levels', LevelController::class)->except(['show']);
+    Route::resource('modules', ModuleController::class)->except(['show']);
     Route::resource('quizzes', QuizController::class)->except(['show']);
     Route::resource('questions', QuestionController::class)->except(['show']);
     Route::resource('quizzes.questions', QuizQuestionController::class)->except(['show']);

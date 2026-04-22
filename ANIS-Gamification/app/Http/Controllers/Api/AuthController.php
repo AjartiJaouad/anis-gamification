@@ -30,14 +30,16 @@ class AuthController extends Controller
         $user = User::create([
             'pseudo' => $request->pseudo,
             'email' => $email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'role' => $role,
-            'is_anonymous' => $request->boolean('stay_anonymous') || ! filled($email),
+            'is_anonymous' => $request->boolean('stay_anonymous') || !filled($email),
             'xp_total' => 0,
             'streak_days' => 0,
         ]);
 
+        // 🔥 Gamification start
         $user->recordLoginActivity();
+        $user->checkBadges();
 
         return response()->json([
             'token' => $user->createToken('api')->plainTextToken,
@@ -60,7 +62,9 @@ class AuthController extends Controller
             return response()->json(['message' => 'Identifiants invalides.'], 401);
         }
 
+        // 🔥 Gamification
         $user->recordLoginActivity();
+        $user->checkBadges();
 
         return response()->json([
             'token' => $user->createToken('api')->plainTextToken,

@@ -97,9 +97,9 @@
     </div>
     <div class="hidden md:flex items-center gap-8">
         <nav class="flex items-center gap-6">
-            <a class="text-primary font-bold font-label" href="#">Dashboard</a>
-            <a class="text-on-surface font-label hover:bg-surface-container-low px-3 py-1 rounded-full transition-colors" href="#">Users</a>
-            <a class="text-on-surface font-label hover:bg-surface-container-low px-3 py-1 rounded-full transition-colors" href="#">Modules</a>
+            <a class="text-primary font-bold font-label" href="{{ route('admin.dashboard') }}">Dashboard</a>
+            <a class="text-on-surface font-label hover:bg-surface-container-low px-3 py-1 rounded-full transition-colors" href="{{ route('admin.users.index') }}">Users</a>
+            <a class="text-on-surface font-label hover:bg-surface-container-low px-3 py-1 rounded-full transition-colors" href="{{ route('admin.modules.index') }}">Modules</a>
         </nav>
         <div class="flex items-center gap-3">
             <span class="text-sm text-on-surface-variant">
@@ -137,9 +137,17 @@
                     <span class="material-symbols-outlined">quiz</span>
                     Gestion des quizzes
                 </a>
+                <a href="{{ route('admin.modules.index') }}" class="flex items-center gap-3 rounded-2xl border border-surface-container bg-white px-4 py-3 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-surface-container-low">
+                    <span class="material-symbols-outlined">menu_book</span>
+                    Gestion des modules
+                </a>
                 <a href="{{ route('admin.questions.index') }}" class="flex items-center gap-3 rounded-2xl border border-primary/10 bg-primary/5 px-4 py-3 text-sm font-semibold text-primary transition hover:bg-primary/10">
                     <span class="material-symbols-outlined">help</span>
                     Gestion des questions
+                </a>
+                <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 rounded-2xl border border-surface-container bg-white px-4 py-3 text-sm font-semibold text-on-surface transition hover:border-primary hover:bg-surface-container-low">
+                    <span class="material-symbols-outlined">groups</span>
+                    Gestion des utilisateurs
                 </a>
             </nav>
         </aside>
@@ -161,10 +169,10 @@
                         <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">group</span>
                     </div>
                     <p class="text-on-surface-variant font-label text-xs uppercase tracking-wider mb-2">Total Users</p>
-                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ \App\Models\User::count() }}</h3>
+                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ $totalUsers }}</h3>
                     <div class="mt-4 flex items-center gap-1 text-primary text-xs font-bold">
                         <span class="material-symbols-outlined text-sm">group</span>
-                        <span>{{ \App\Models\User::where('role','admin')->count() }} admin · {{ \App\Models\User::where('role','user')->count() }} users</span>
+                        <span>{{ $adminCount }} admin · {{ $userCount }} users</span>
                     </div>
                 </div>
 
@@ -173,7 +181,7 @@
                         <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
                     </div>
                     <p class="text-on-surface-variant font-label text-xs uppercase tracking-wider mb-2">XP Total</p>
-                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ \App\Models\User::sum('xp_total') }}</h3>
+                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ $totalXp }}</h3>
                     <div class="mt-4 flex items-center gap-1 text-primary text-xs font-bold">
                         <span class="material-symbols-outlined text-sm">visibility</span>
                         <span>Cumul de tous les users</span>
@@ -185,7 +193,7 @@
                         <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
                     </div>
                     <p class="text-on-surface-variant font-label text-xs uppercase tracking-wider mb-2">Anonymes</p>
-                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ \App\Models\User::where('is_anonymous', true)->count() }}</h3>
+                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ $anonymousCount }}</h3>
                     <div class="mt-4 flex items-center gap-1 text-primary text-xs font-bold">
                         <span class="material-symbols-outlined text-sm">visibility_off</span>
                         <span>Sans email enregistré</span>
@@ -197,10 +205,34 @@
                         <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
                     </div>
                     <p class="text-on-surface-variant font-label text-xs uppercase tracking-wider mb-2">Meilleur Streak</p>
-                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ \App\Models\User::max('streak_days') }}j</h3>
+                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ $bestStreak }}j</h3>
                     <div class="mt-4 flex items-center gap-1 text-primary text-xs font-bold">
                         <span class="material-symbols-outlined text-sm">analytics</span>
                         <span>Record actuel</span>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_12px_32px_rgba(44,47,48,0.06)] relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 opacity-5 text-primary">
+                        <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+                    </div>
+                    <p class="text-on-surface-variant font-label text-xs uppercase tracking-wider mb-2">Modules</p>
+                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ $modulesCount }}</h3>
+                    <div class="mt-4 flex items-center gap-1 text-primary text-xs font-bold">
+                        <span class="material-symbols-outlined text-sm">newsstand</span>
+                        <span>Contenus pedagogiques publies</span>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_12px_32px_rgba(44,47,48,0.06)] relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 opacity-5 text-primary">
+                        <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">quiz</span>
+                    </div>
+                    <p class="text-on-surface-variant font-label text-xs uppercase tracking-wider mb-2">Quizzes</p>
+                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ $quizzesCount }}</h3>
+                    <div class="mt-4 flex items-center gap-1 text-primary text-xs font-bold">
+                        <span class="material-symbols-outlined text-sm">school</span>
+                        <span>Evaluations disponibles</span>
                     </div>
                 </div>
 
@@ -231,7 +263,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-surface-container-low font-body text-sm">
-                                @forelse(\App\Models\User::latest()->get() as $user)
+                                @forelse($recentUsers as $user)
                                 <tr class="hover:bg-surface-container-low/50 transition-colors">
                                     <td class="px-6 py-5 text-on-surface-variant">{{ $user->id }}</td>
                                     <td class="px-6 py-5 font-semibold text-on-surface">{{ $user->pseudo }}</td>
@@ -265,16 +297,6 @@
 
                     <div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_12px_32px_rgba(44,47,48,0.06)] space-y-8">
 
-                        @php
-                            $total      = \App\Models\User::count() ?: 1;
-                            $adminCount = \App\Models\User::where('role','admin')->count();
-                            $userCount  = \App\Models\User::where('role','user')->count();
-                            $anonCount  = \App\Models\User::where('is_anonymous', true)->count();
-                            $adminPct   = round($adminCount / $total * 100);
-                            $userPct    = round($userCount  / $total * 100);
-                            $anonPct    = round($anonCount  / $total * 100);
-                        @endphp
-
                         <div class="space-y-2">
                             <div class="flex justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant">
                                 <span>Admins</span><span>{{ $adminPct }}%</span>
@@ -295,10 +317,10 @@
 
                         <div class="space-y-2">
                             <div class="flex justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant">
-                                <span>Anonymes</span><span>{{ $anonPct }}%</span>
+                                <span>Anonymes</span><span>{{ $anonymousPct }}%</span>
                             </div>
                             <div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden">
-                                <div class="bg-primary h-full rounded-full opacity-40" style="width: {{ $anonPct }}%"></div>
+                                <div class="bg-primary h-full rounded-full opacity-40" style="width: {{ $anonymousPct }}%"></div>
                             </div>
                         </div>
 

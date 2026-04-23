@@ -53,8 +53,12 @@
                     <span class="material-symbols-outlined text-base">person</span>
                     Profil
                 </a>
+                <a href="{{ route('modules.index') }}" class="text-sm font-semibold text-primary hover:underline inline-flex items-center gap-1">
+                    <span class="material-symbols-outlined text-base">library_books</span>
+                    Modules
+                </a>
                 <span class="text-sm text-on-surface-variant font-medium">
-                    Bonjour, <span class="font-bold text-primary">{{ auth()->user()->pseudo }}</span>
+                    Bonjour, <span class="font-bold text-primary">{{ $user->pseudo }}</span>
                 </span>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
@@ -80,19 +84,19 @@
 
         <div class="mb-10">
             <h1 class="font-headline font-extrabold text-3xl text-on-surface">
-                Bienvenue sur votre espace, <span class="text-primary">{{ auth()->user()->pseudo }}</span> 🌱
+                Bienvenue sur votre espace, <span class="text-primary">{{ $user->pseudo }}</span> 🌱
             </h1>
             <p class="mt-2 text-on-surface-variant">Suivez votre progression et continuez votre parcours.</p>
         </div>
 
         {{-- Stats cards --}}
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 mb-12">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4 mb-12">
             <div class="rounded-xl bg-surface-container-lowest p-6 shadow-sm border border-surface-container">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings:'FILL' 1;">bolt</span>
                     <span class="font-headline font-bold text-lg">XP Total</span>
                 </div>
-                <p class="text-4xl font-extrabold text-primary">{{ auth()->user()->xp_total }}</p>
+                <p class="text-4xl font-extrabold text-primary">{{ $user->xp_total }}</p>
                 <p class="text-xs text-on-surface-variant mt-1">Points d'expérience accumulés</p>
             </div>
 
@@ -101,7 +105,7 @@
                     <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings:'FILL' 1;">local_fire_department</span>
                     <span class="font-headline font-bold text-lg">Streak</span>
                 </div>
-                <p class="text-4xl font-extrabold text-primary">{{ auth()->user()->streak_days }}</p>
+                <p class="text-4xl font-extrabold text-primary">{{ $user->streak_days }}</p>
                 <p class="text-xs text-on-surface-variant mt-1">Jours consécutifs actifs</p>
             </div>
 
@@ -111,25 +115,77 @@
                     <span class="font-headline font-bold text-lg">Statut</span>
                 </div>
                 <p class="text-2xl font-extrabold text-primary">
-                    {{ auth()->user()->is_anonymous ? 'Anonyme' : 'Identifié' }}
+                    {{ $user->is_anonymous ? 'Anonyme' : 'Identifie' }}
                 </p>
                 <p class="text-xs text-on-surface-variant mt-1">Mode de confidentialité</p>
             </div>
+
+            <div class="rounded-xl bg-surface-container-lowest p-6 shadow-sm border border-surface-container">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings:'FILL' 1;">military_tech</span>
+                    <span class="font-headline font-bold text-lg">Niveau actuel</span>
+                </div>
+                <p class="text-4xl font-extrabold text-primary">{{ $currentLevel }}</p>
+                <p class="text-xs text-on-surface-variant mt-1">Difficulte maximale debloquee</p>
+            </div>
         </div>
 
-        {{-- Quiz section --}}
-        <div class="rounded-xl bg-surface-container-lowest p-8 shadow-sm border border-surface-container">
-            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                <div>
-                    <span class="text-sm font-semibold uppercase tracking-[0.25em] text-on-surface-variant">Quiz interactifs</span>
-                    <h2 class="mt-2 text-2xl font-headline font-bold text-on-surface">Commence ton prochain quiz</h2>
-                    <p class="mt-2 text-sm text-on-surface-variant">Tu peux jouer au niveau <strong>{{ auth()->user()->highest_unlocked_difficulty ?? 1 }}</strong> pour l'instant.</p>
+        <div class="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
+            <div class="rounded-xl bg-surface-container-lowest p-8 shadow-sm border border-surface-container">
+                <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <span class="text-sm font-semibold uppercase tracking-[0.25em] text-on-surface-variant">Parcours d'apprentissage</span>
+                        <h2 class="mt-2 text-2xl font-headline font-bold text-on-surface">Continue tes modules et quiz</h2>
+                        <p class="mt-2 text-sm text-on-surface-variant">Tu as complete <strong>{{ $completedModulesCount }}</strong> module(s) sur <strong>{{ $modulesCount }}</strong>. Ton quiz maximum reste le niveau <strong>{{ $currentLevel }}</strong>.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="{{ route('modules.index') }}" class="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-white px-5 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition">
+                            <span class="material-symbols-outlined">menu_book</span>
+                            Voir les modules
+                        </a>
+                        <a href="{{ route('quizzes.index') }}" class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-on-primary hover:bg-primary-dim transition">
+                            <span class="material-symbols-outlined">play_arrow</span>
+                            Commencer un quiz
+                        </a>
+                    </div>
                 </div>
-                <a href="{{ route('quizzes.index') }}" class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-on-primary hover:bg-primary-dim transition">
-                    <span class="material-symbols-outlined">play_arrow</span>
-                    Commencer un quiz
-                </a>
+
+                <div class="mt-8 rounded-2xl bg-white p-5">
+                    <div class="flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-semibold text-on-surface-variant">Progression globale</p>
+                            <p class="mt-2 text-4xl font-extrabold text-primary">{{ $moduleProgress }}%</p>
+                        </div>
+                        <span class="rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">{{ $completedModulesCount }} modules termines</span>
+                    </div>
+                    <div class="mt-4 h-3 overflow-hidden rounded-full bg-surface-container">
+                        <div class="h-full rounded-full bg-primary" style="width: {{ $moduleProgress }}%"></div>
+                    </div>
+                </div>
             </div>
+
+            <aside class="rounded-xl bg-surface-container-lowest p-8 shadow-sm border border-surface-container">
+                <div class="flex items-center justify-between gap-4">
+                    <div>
+                        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-on-surface-variant">Badges recents</p>
+                        <h2 class="mt-2 text-2xl font-headline font-bold">Tes recompenses</h2>
+                    </div>
+                    <span class="rounded-full bg-primary/10 px-3 py-2 text-sm font-semibold text-primary">{{ $recentBadges->count() }}</span>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    @forelse($recentBadges as $badge)
+                        <div class="rounded-2xl bg-white p-4">
+                            <p class="font-headline text-lg font-bold text-on-surface">{{ $badge->name }}</p>
+                            <p class="mt-1 text-sm text-on-surface-variant">{{ $badge->description }}</p>
+                        </div>
+                    @empty
+                        <div class="rounded-2xl bg-white p-4 text-sm text-on-surface-variant">
+                            Aucun badge recent pour le moment. Continue ton parcours pour en debloquer.
+                        </div>
+                    @endforelse
+                </div>
+            </aside>
         </div>
 
     </main>

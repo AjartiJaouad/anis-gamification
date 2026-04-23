@@ -37,4 +37,35 @@ class ModuleController extends Controller
         return redirect()->route('admin.modules.index')
             ->with('success', 'Module cree avec succes.');
     }
+
+    public function edit(Module $module)
+    {
+        return view('admin.modules.edit', compact('module'));
+    }
+
+    public function update(Request $request, Module $module)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'order' => 'nullable|integer|min:1',
+        ]);
+
+        $module->update([
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'order' => $data['order'] ?? $module->order,
+        ]);
+
+        return redirect()->route('admin.modules.index')
+            ->with('success', 'Module mis a jour avec succes.');
+    }
+
+    public function destroy(Module $module)
+    {
+        $module->delete();
+
+        return redirect()->route('admin.modules.index')
+            ->with('success', 'Module supprime avec succes.');
+    }
 }

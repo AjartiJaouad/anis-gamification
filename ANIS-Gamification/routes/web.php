@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizQuestionController;
+use App\Http\Controllers\User\ModuleController as UserModuleController;
 use App\Http\Controllers\User\QuizController as UserQuizController;
 
 Route::get('/', fn () => view('home'))->name('home');
@@ -33,6 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/modules', [UserModuleController::class, 'index'])->name('modules.index');
+    Route::get('/modules/{module}', [UserModuleController::class, 'show'])->name('modules.show');
+    Route::post('/modules/{module}/complete', [UserModuleController::class, 'complete'])->name('modules.complete');
 
     Route::get('/quizzes', [UserQuizController::class, 'index'])->name('quizzes.index');
     Route::get('/quizzes/{quiz}', [UserQuizController::class, 'show'])->name('quizzes.show');

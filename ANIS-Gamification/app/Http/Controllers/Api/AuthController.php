@@ -62,7 +62,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Identifiants invalides.'], 401);
         }
 
-        // 🔥 Gamification
+        //Gamification
         $user->recordLoginActivity();
         $user->checkBadges();
 

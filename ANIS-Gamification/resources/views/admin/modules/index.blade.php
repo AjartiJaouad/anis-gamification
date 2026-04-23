@@ -74,6 +74,7 @@
                             <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Ordre</th>
                             <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Titre</th>
                             <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Contenu</th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-surface-container-low bg-white">
@@ -82,10 +83,24 @@
                                 <td class="px-6 py-4 text-sm">{{ $module->order }}</td>
                                 <td class="px-6 py-4 text-sm font-semibold">{{ $module->title }}</td>
                                 <td class="px-6 py-4 text-sm text-on-surface-variant">{{ \Illuminate\Support\Str::limit($module->content, 120) }}</td>
+                                <td class="px-6 py-4 text-right text-sm">
+                                    <div class="flex flex-wrap justify-end gap-2">
+                                        <a href="{{ route('admin.modules.edit', $module) }}" class="inline-flex items-center gap-2 rounded-full border border-primary/10 bg-primary/5 px-3 py-2 font-semibold text-primary transition hover:bg-primary/10">
+                                            Modifier
+                                        </a>
+                                        <form action="{{ route('admin.modules.destroy', $module) }}" method="POST" class="inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="inline-flex items-center rounded-full bg-red-50 px-3 py-2 font-semibold text-red-700 transition hover:bg-red-100">
+                                                Supprimer
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="px-6 py-12 text-center text-sm text-on-surface-variant">Aucun module n'a encore ete cree.</td>
+                                <td colspan="4" class="px-6 py-12 text-center text-sm text-on-surface-variant">Aucun module n'a encore ete cree.</td>
                             </tr>
                         @endforelse
                     </tbody>

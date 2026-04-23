@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\LevelController;
 use App\Http\Controllers\Admin\ModuleController;
@@ -25,7 +26,7 @@ Route::post('/login', [AuthController::class, 'login'])
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // User dashboard - auth فقط
-Route::get('/dashboard', fn () => view('dashboard'))
+Route::get('/dashboard', DashboardController::class)
     ->middleware('auth')
     ->name('dashboard');
 

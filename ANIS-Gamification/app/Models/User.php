@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Badge;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Badge;
 
 class User extends Authenticatable
 {
@@ -49,6 +50,13 @@ class User extends Authenticatable
     public function badges()
     {
         return $this->belongsToMany(Badge::class)->withTimestamps();
+    }
+
+    public function completedModules(): BelongsToMany
+    {
+        return $this->belongsToMany(Module::class, 'module_user_progress')
+            ->withPivot(['completed_at'])
+            ->withTimestamps();
     }
 
     // 🔥 Streak + bonus XP login
@@ -96,5 +104,10 @@ class User extends Authenticatable
                 $this->badges()->syncWithoutDetaching([$badge->id]);
             }
         }
+    }
+
+    public function hasCompletedModule(Module $module): bool
+    {
+        return $this->completedModules->contains($module->id);
     }
 }

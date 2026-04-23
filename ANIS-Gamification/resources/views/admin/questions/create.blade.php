@@ -129,6 +129,18 @@
                             </div>
                         </div>
 
+                        <div>
+                            <label for="question_type" class="block text-sm font-semibold text-on-surface">Type de question</label>
+                            <select id="question_type" name="question_type" required
+                                class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10">
+                                <option value="mcq" {{ old('question_type', 'mcq') === 'mcq' ? 'selected' : '' }}>QCM</option>
+                                <option value="true_false" {{ old('question_type') === 'true_false' ? 'selected' : '' }}>Vrai / Faux</option>
+                            </select>
+                            @error('question_type')
+                                <p class="mt-2 text-sm text-error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <div class="rounded-3xl border border-surface-container bg-surface-container-lowest p-5">
                             <p class="text-sm text-on-surface-variant">Nombre actuel de questions pour le quiz sélectionné :</p>
                             <p id="quiz-counter" class="mt-2 text-base font-semibold text-on-surface">Choisissez un quiz pour voir le maximum autorisé.</p>
@@ -163,6 +175,9 @@
                         </div>
 
                         @error('correct_options')
+                            <p class="text-sm text-error">{{ $message }}</p>
+                        @enderror
+                        @error('options')
                             <p class="text-sm text-error">{{ $message }}</p>
                         @enderror
 

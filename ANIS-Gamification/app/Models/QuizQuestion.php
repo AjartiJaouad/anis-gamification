@@ -4,11 +4,10 @@ namespace App\Models;
 
 use App\Models\Level;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['quiz_id', 'level_id', 'question'])]
+#[Fillable(['quiz_id', 'level_id', 'question', 'question_type'])]
 class QuizQuestion extends Model
 {
     use HasFactory;

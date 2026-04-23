@@ -94,6 +94,36 @@
                     <form action="{{ route('admin.quizzes.questions.store', $quiz) }}" method="POST" class="space-y-6">
                         @csrf
 
+                        <div class="grid gap-6 lg:grid-cols-2">
+                            <div>
+                                <label for="level_id" class="block text-sm font-semibold text-on-surface">Difficulté</label>
+                                <select id="level_id" name="level_id" required
+                                    class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10">
+                                    <option value="">Sélectionnez une difficulté</option>
+                                    @foreach($levels as $level)
+                                        <option value="{{ $level->id }}" {{ old('level_id') == $level->id ? 'selected' : '' }}>
+                                            Difficulté {{ $level->difficulty }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('level_id')
+                                    <p class="mt-2 text-sm text-error">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="question_type" class="block text-sm font-semibold text-on-surface">Type de question</label>
+                                <select id="question_type" name="question_type" required
+                                    class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10">
+                                    <option value="mcq" {{ old('question_type', 'mcq') === 'mcq' ? 'selected' : '' }}>QCM</option>
+                                    <option value="true_false" {{ old('question_type') === 'true_false' ? 'selected' : '' }}>Vrai / Faux</option>
+                                </select>
+                                @error('question_type')
+                                    <p class="mt-2 text-sm text-error">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div>
                             <label for="question" class="block text-sm font-semibold text-on-surface">Question</label>
                             <textarea id="question" name="question" rows="4" required
@@ -123,6 +153,9 @@
                         </div>
 
                         @error('correct_options')
+                            <p class="text-sm text-error">{{ $message }}</p>
+                        @enderror
+                        @error('options')
                             <p class="text-sm text-error">{{ $message }}</p>
                         @enderror
 

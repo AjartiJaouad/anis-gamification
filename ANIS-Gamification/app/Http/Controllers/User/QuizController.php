@@ -131,6 +131,7 @@ class QuizController extends Controller
         }
 
         $user->save();
+        $user->checkBadges();
 
         if ($passed) {
             $message = "Quiz réussi ($correctCount / $totalQuestions) — au moins 70 %. ";

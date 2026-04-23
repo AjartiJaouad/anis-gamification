@@ -105,8 +105,8 @@
 
                 <div class="overflow-hidden rounded-3xl bg-white shadow-sm border border-surface-container">
                     <div class="px-6 py-5 border-b border-surface-container bg-surface-container-lowest">
-                        <h2 class="text-lg font-semibold text-on-surface">Questions QCM</h2>
-                        <p class="text-sm text-on-surface-variant mt-1">Ajoutez les questions et marquez les réponses vraies.</p>
+                        <h2 class="text-lg font-semibold text-on-surface">Questions du quiz</h2>
+                        <p class="text-sm text-on-surface-variant mt-1">Ajoutez des questions QCM ou Vrai/Faux et marquez les réponses vraies.</p>
                     </div>
 
                     <div class="overflow-x-auto">
@@ -114,6 +114,8 @@
                             <thead class="bg-surface-container">
                                 <tr>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Question</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Niveau</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Type</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Réponses</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Vraies</th>
                                     <th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Actions</th>
@@ -123,6 +125,8 @@
                                 @forelse($quiz->questions as $question)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ \Illuminate\Support\Str::limit($question->question, 80) }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">Difficulté {{ $question->level->difficulty }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ ($question->question_type ?? 'mcq') === 'true_false' ? 'Vrai/Faux' : 'QCM' }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $question->options->count() }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $question->options->where('is_correct', true)->count() }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex flex-wrap justify-end gap-2">
@@ -142,7 +146,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="px-6 py-12 text-center text-sm text-on-surface-variant">Aucune question n'a été ajoutée pour ce quiz.</td>
+                                        <td colspan="6" class="px-6 py-12 text-center text-sm text-on-surface-variant">Aucune question n'a été ajoutée pour ce quiz.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

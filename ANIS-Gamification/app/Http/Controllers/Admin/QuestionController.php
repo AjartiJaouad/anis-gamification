@@ -34,11 +34,24 @@ class QuestionController extends Controller
             'quiz_id' => 'required|exists:quizzes,id',
             'level_id' => 'required|exists:levels,id',
             'question' => 'required|string|max:1000',
+            'question_type' => 'required|in:mcq,true_false',
             'options' => 'required|array|min:2|max:6',
             'options.*' => 'required|string|max:255',
             'correct_options' => 'required|array|min:1',
             'correct_options.*' => 'integer|min:0',
         ]);
+
+        if ($data['question_type'] === 'true_false' && count($data['options']) !== 2) {
+            return back()
+                ->withInput()
+                ->withErrors(['options' => 'Une question Vrai/Faux doit contenir exactement 2 réponses.']);
+        }
+
+        if ($data['question_type'] === 'true_false' && count($data['correct_options']) !== 1) {
+            return back()
+                ->withInput()
+                ->withErrors(['correct_options' => 'Une question Vrai/Faux doit avoir une seule bonne réponse.']);
+        }
 
         $quiz = Quiz::findOrFail($data['quiz_id']);
 
@@ -52,6 +65,7 @@ class QuestionController extends Controller
             'quiz_id' => $data['quiz_id'],
             'level_id' => $data['level_id'],
             'question' => $data['question'],
+            'question_type' => $data['question_type'],
         ]);
 
         $correctIndexes = array_map(intval(...), $data['correct_options']);
@@ -86,11 +100,24 @@ class QuestionController extends Controller
             'quiz_id' => 'required|exists:quizzes,id',
             'level_id' => 'required|exists:levels,id',
             'question' => 'required|string|max:1000',
+            'question_type' => 'required|in:mcq,true_false',
             'options' => 'required|array|min:2|max:6',
             'options.*' => 'required|string|max:255',
             'correct_options' => 'required|array|min:1',
             'correct_options.*' => 'integer|min:0',
         ]);
+
+        if ($data['question_type'] === 'true_false' && count($data['options']) !== 2) {
+            return back()
+                ->withInput()
+                ->withErrors(['options' => 'Une question Vrai/Faux doit contenir exactement 2 réponses.']);
+        }
+
+        if ($data['question_type'] === 'true_false' && count($data['correct_options']) !== 1) {
+            return back()
+                ->withInput()
+                ->withErrors(['correct_options' => 'Une question Vrai/Faux doit avoir une seule bonne réponse.']);
+        }
 
         $quiz = Quiz::findOrFail($data['quiz_id']);
 
@@ -104,6 +131,7 @@ class QuestionController extends Controller
             'quiz_id' => $data['quiz_id'],
             'level_id' => $data['level_id'],
             'question' => $data['question'],
+            'question_type' => $data['question_type'],
         ]);
 
         $question->options()->delete();

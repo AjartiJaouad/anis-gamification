@@ -52,6 +52,7 @@ class AuthController extends Controller
 
         Auth::login($user);
         $user->recordLoginActivity();
+        $user->checkBadges();
 
         return $user->isAdmin()
             ? redirect()->route('admin.dashboard')->with('success', 'Bienvenue Admin!')
@@ -85,6 +86,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         $user->recordLoginActivity();
+        $user->checkBadges();
 
         return auth()->user()->isAdmin()
             ? redirect()->route('admin.dashboard')

@@ -48,7 +48,11 @@
                 <span class="material-symbols-outlined text-2xl text-primary">local_florist</span>
                 <span class="font-headline font-black text-xl text-primary">ANIS</span>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 flex-wrap justify-end">
+                <a href="{{ route('profile.edit') }}" class="text-sm font-semibold text-primary hover:underline inline-flex items-center gap-1">
+                    <span class="material-symbols-outlined text-base">person</span>
+                    Profil
+                </a>
                 <span class="text-sm text-on-surface-variant font-medium">
                     Bonjour, <span class="font-bold text-primary">{{ auth()->user()->pseudo }}</span>
                 </span>
@@ -113,11 +117,19 @@
             </div>
         </div>
 
-        {{-- Modules placeholder --}}
-        <div class="rounded-xl bg-surface-container-lowest p-8 shadow-sm border border-surface-container text-center">
-            <span class="material-symbols-outlined text-5xl text-primary/30 mb-4 block">construction</span>
-            <h2 class="font-headline font-bold text-xl text-on-surface mb-2">Modules en cours de développement</h2>
-            <p class="text-on-surface-variant text-sm">Les quiz et modules interactifs arrivent bientôt.</p>
+        {{-- Quiz section --}}
+        <div class="rounded-xl bg-surface-container-lowest p-8 shadow-sm border border-surface-container">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                    <span class="text-sm font-semibold uppercase tracking-[0.25em] text-on-surface-variant">Quiz interactifs</span>
+                    <h2 class="mt-2 text-2xl font-headline font-bold text-on-surface">Commence ton prochain quiz</h2>
+                    <p class="mt-2 text-sm text-on-surface-variant">Tu peux jouer au niveau <strong>{{ auth()->user()->highest_unlocked_difficulty ?? 1 }}</strong> pour l'instant.</p>
+                </div>
+                <a href="{{ route('quizzes.index') }}" class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-on-primary hover:bg-primary-dim transition">
+                    <span class="material-symbols-outlined">play_arrow</span>
+                    Commencer un quiz
+                </a>
+            </div>
         </div>
 
     </main>

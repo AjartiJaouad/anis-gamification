@@ -2,37 +2,99 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Badge;
 
-#[Fillable(['pseudo', 'email', 'password', 'role', 'is_anonymous', 'xp_total', 'streak_days'])]
-#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password'          => 'hashed',
-        ];
-    }
+    protected $fillable = [
+        'pseudo',
+        'email',
+        'password',
+        'role',
+        'is_anonymous',
+        'xp_total',
+        'streak_days',
+        'streak_last_counted_on',
+        'last_daily_bonus_date',
+        'highest_unlocked_difficulty',
+    ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'highest_unlocked_difficulty' => 'integer',
+        'streak_last_counted_on' => 'date',
+        'last_daily_bonus_date' => 'date',
+    ];
+
+    // 🔐 Vérifier admin
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
+    }
+
+    // 🏅 Relation avec badges
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class)->withTimestamps();
+    }
+
+    // 🔥 Streak + bonus XP login
+    public function recordLoginActivity(): void
+    {
+        $today = Carbon::today();
+        $yesterday = Carbon::yesterday();
+
+        // Bonus XP une fois par jour
+        if ($this->last_daily_bonus_date === null || ! $this->last_daily_bonus_date->equalTo($today)) {
+            $this->xp_total += 10;
+            $this->last_daily_bonus_date = $today;
+        }
+
+        // Gestion du streak
+        if (! $this->streak_last_counted_on?->equalTo($today)) {
+            if ($this->streak_last_counted_on === null) {
+                $this->streak_days = 1;
+            } elseif ($this->streak_last_counted_on->equalTo($yesterday)) {
+                $this->streak_days += 1;
+            } else {
+                $this->streak_days = 1;
+            }
+
+            $this->streak_last_counted_on = $today;
+        }
+
+        $this->save();
+    }
+
+    // 🎮 Attribution automatique des badges
+    public function checkBadges(): void
+    {
+        $badges = Badge::all();
+
+        foreach ($badges as $badge) {
+
+            // Badge XP
+            if ($badge->condition_type === 'xp' && $this->xp_total >= $badge->condition_value) {
+                $this->badges()->syncWithoutDetaching([$badge->id]);
+            }
+
+            // Badge Streak
+            if ($badge->condition_type === 'streak' && $this->streak_days >= $badge->condition_value) {
+                $this->badges()->syncWithoutDetaching([$badge->id]);
+            }
+        }
     }
 }

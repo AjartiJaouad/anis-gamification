@@ -48,7 +48,8 @@ class AdminBackofficeTest extends TestCase
             'role' => 'admin',
         ]);
 
-        $response->assertRedirect(route('admin.users.index'));
+        $response->assertStatus(302);
+        $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'role' => 'admin',

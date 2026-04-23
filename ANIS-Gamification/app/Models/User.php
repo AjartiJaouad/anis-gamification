@@ -6,6 +6,7 @@ use App\Models\Badge;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -58,6 +59,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Module::class, 'module_user_progress')
             ->withPivot(['completed_at'])
             ->withTimestamps();
+    }
+
+    public function quizAttempts(): HasMany
+    {
+        return $this->hasMany(QuizAttempt::class);
     }
 
     // 🔥 Streak + bonus XP login

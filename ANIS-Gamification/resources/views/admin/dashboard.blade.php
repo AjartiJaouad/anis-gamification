@@ -236,6 +236,30 @@
                     </div>
                 </div>
 
+                <div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_12px_32px_rgba(44,47,48,0.06)] relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 opacity-5 text-primary">
+                        <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+                    </div>
+                    <p class="text-on-surface-variant font-label text-xs uppercase tracking-wider mb-2">Badges</p>
+                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ $badgesCount }}</h3>
+                    <div class="mt-4 flex items-center gap-1 text-primary text-xs font-bold">
+                        <span class="material-symbols-outlined text-sm">military_tech</span>
+                        <span>Recompenses configurees</span>
+                    </div>
+                </div>
+
+                <div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_12px_32px_rgba(44,47,48,0.06)] relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 opacity-5 text-primary">
+                        <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">sports_score</span>
+                    </div>
+                    <p class="text-on-surface-variant font-label text-xs uppercase tracking-wider mb-2">Tentatives quiz</p>
+                    <h3 class="text-3xl font-headline font-extrabold text-on-surface">{{ $totalAttempts }}</h3>
+                    <div class="mt-4 flex items-center gap-1 text-primary text-xs font-bold">
+                        <span class="material-symbols-outlined text-sm">task_alt</span>
+                        <span>{{ $quizPassRate }}% de reussite</span>
+                    </div>
+                </div>
+
             </section>
 
             {{-- ===== MAIN CONTENT ===== --}}
@@ -333,6 +357,30 @@
                                         Le premier utilisateur enregistré reçoit automatiquement le rôle <strong>Admin</strong>.
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="rounded-2xl border border-surface-container bg-white p-4">
+                            <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Performance quiz</p>
+                            <div class="mt-4 flex items-end justify-between gap-4">
+                                <div>
+                                    <p class="text-sm text-on-surface-variant">Score moyen</p>
+                                    <p class="mt-1 text-3xl font-headline font-extrabold text-primary">{{ $averageQuizScore }}%</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm text-on-surface-variant">Quiz le plus joue</p>
+                                    <p class="mt-1 text-sm font-bold text-on-surface">{{ $topQuiz?->title ?? 'Aucun' }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rounded-2xl border border-surface-container bg-white p-4">
+                            <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Top apprenant</p>
+                            <div class="mt-3">
+                                <p class="text-lg font-headline font-bold text-on-surface">{{ $topLearner?->pseudo ?? 'Aucun utilisateur' }}</p>
+                                <p class="mt-1 text-sm text-on-surface-variant">
+                                    {{ $topLearner ? $topLearner->xp_total.' XP • '.$topLearner->streak_days.' jours de streak' : 'Les statistiques apparaitront des que des utilisateurs progresseront.' }}
+                                </p>
                             </div>
                         </div>
 

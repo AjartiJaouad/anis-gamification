@@ -130,7 +130,7 @@
             </div>
         </div>
 
-        <div class="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
+        <div class="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
             <div class="rounded-xl bg-surface-container-lowest p-8 shadow-sm border border-surface-container">
                 <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                     <div>
@@ -164,26 +164,52 @@
                 </div>
             </div>
 
-            <aside class="rounded-xl bg-surface-container-lowest p-8 shadow-sm border border-surface-container">
-                <div class="flex items-center justify-between gap-4">
-                    <div>
-                        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-on-surface-variant">Badges recents</p>
-                        <h2 class="mt-2 text-2xl font-headline font-bold">Tes recompenses</h2>
+            <aside class="space-y-6">
+                <div class="rounded-xl bg-surface-container-lowest p-8 shadow-sm border border-surface-container">
+                    <div class="flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-on-surface-variant">Quiz stats</p>
+                            <h2 class="mt-2 text-2xl font-headline font-bold">Tes performances</h2>
+                        </div>
                     </div>
-                    <span class="rounded-full bg-primary/10 px-3 py-2 text-sm font-semibold text-primary">{{ $recentBadges->count() }}</span>
+
+                    <div class="mt-6 grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+                        <div class="rounded-2xl bg-white p-4">
+                            <p class="text-sm text-on-surface-variant">Tentatives</p>
+                            <p class="mt-2 text-3xl font-headline font-extrabold text-primary">{{ $quizAttemptsCount }}</p>
+                        </div>
+                        <div class="rounded-2xl bg-white p-4">
+                            <p class="text-sm text-on-surface-variant">Taux de reussite</p>
+                            <p class="mt-2 text-3xl font-headline font-extrabold text-primary">{{ $quizPassRate }}%</p>
+                        </div>
+                        <div class="rounded-2xl bg-white p-4">
+                            <p class="text-sm text-on-surface-variant">Score moyen</p>
+                            <p class="mt-2 text-3xl font-headline font-extrabold text-primary">{{ $averageQuizScore }}%</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="mt-6 space-y-4">
-                    @forelse($recentBadges as $badge)
-                        <div class="rounded-2xl bg-white p-4">
-                            <p class="font-headline text-lg font-bold text-on-surface">{{ $badge->name }}</p>
-                            <p class="mt-1 text-sm text-on-surface-variant">{{ $badge->description }}</p>
+                <div class="rounded-xl bg-surface-container-lowest p-8 shadow-sm border border-surface-container">
+                    <div class="flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-on-surface-variant">Badges recents</p>
+                            <h2 class="mt-2 text-2xl font-headline font-bold">Tes recompenses</h2>
                         </div>
-                    @empty
-                        <div class="rounded-2xl bg-white p-4 text-sm text-on-surface-variant">
-                            Aucun badge recent pour le moment. Continue ton parcours pour en debloquer.
-                        </div>
-                    @endforelse
+                        <span class="rounded-full bg-primary/10 px-3 py-2 text-sm font-semibold text-primary">{{ $recentBadges->count() }}</span>
+                    </div>
+
+                    <div class="mt-6 space-y-4">
+                        @forelse($recentBadges as $badge)
+                            <div class="rounded-2xl bg-white p-4">
+                                <p class="font-headline text-lg font-bold text-on-surface">{{ $badge->name }}</p>
+                                <p class="mt-1 text-sm text-on-surface-variant">{{ $badge->description }}</p>
+                            </div>
+                        @empty
+                            <div class="rounded-2xl bg-white p-4 text-sm text-on-surface-variant">
+                                Aucun badge recent pour le moment. Continue ton parcours pour en debloquer.
+                            </div>
+                        @endforelse
+                    </div>
                 </div>
             </aside>
         </div>

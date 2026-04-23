@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Level;
 use App\Models\Quiz;
+use App\Models\QuizAttempt;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -106,6 +108,7 @@ class QuizController extends Controller
         $totalQuestions = $questions->count();
         $ratio = $totalQuestions > 0 ? $correctCount / $totalQuestions : 0;
         $passed = $totalQuestions > 0 && $ratio >= 0.7;
+        $scorePercent = (int) round($ratio * 100);
 
         $xpGained = 0;
         if ($passed) {
@@ -120,7 +123,7 @@ class QuizController extends Controller
         $unlockedMessage = null;
 
         if ($passed && ($user->highest_unlocked_difficulty ?? 1) === $difficulty) {
-            $nextLevel = Quiz::where('difficulty', '>', $difficulty)
+            $nextLevel = Level::where('difficulty', '>', $difficulty)
                 ->orderBy('difficulty')
                 ->first();
 
@@ -131,6 +134,16 @@ class QuizController extends Controller
         }
 
         $user->save();
+        QuizAttempt::create([
+            'user_id' => $user->id,
+            'quiz_id' => $quiz->id,
+            'difficulty' => $difficulty,
+            'score_percent' => $scorePercent,
+            'correct_answers' => $correctCount,
+            'total_questions' => $totalQuestions,
+            'xp_gained' => $xpGained,
+            'passed' => $passed,
+        ]);
         $user->checkBadges();
 
         if ($passed) {

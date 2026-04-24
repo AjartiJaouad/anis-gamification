@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
@@ -18,5 +19,10 @@ class Module extends Model
         return $this->belongsToMany(User::class, 'module_user_progress')
             ->withPivot(['completed_at'])
             ->withTimestamps();
+    }
+
+    public function quiz(): HasOne
+    {
+        return $this->hasOne(Quiz::class);
     }
 }

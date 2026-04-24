@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Level;
+use App\Models\Module;
 use App\Models\Quiz;
 use App\Models\QuizOption;
 use App\Models\QuizQuestion;
@@ -35,6 +36,11 @@ class QuizProgressionTest extends TestCase
         ]);
 
         $quiz = Quiz::create([
+            'module_id' => Module::create([
+                'title' => 'Module quiz addictions',
+                'content' => 'Contenu module',
+                'order' => 1,
+            ])->id,
             'title' => 'Quiz addictions',
             'description' => 'Quiz de validation',
             'difficulty' => 1,
@@ -79,6 +85,10 @@ class QuizProgressionTest extends TestCase
             'id' => $user->id,
             'highest_unlocked_difficulty' => 2,
             'xp_total' => 150,
+        ]);
+        $this->assertDatabaseHas('module_user_progress', [
+            'user_id' => $user->id,
+            'module_id' => $quiz->module_id,
         ]);
     }
 }

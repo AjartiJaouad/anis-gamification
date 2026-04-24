@@ -39,6 +39,7 @@ class AdminBackofficeTest extends TestCase
     {
         $admin = User::factory()->admin()->create();
         $user = User::factory()->create([
+            'pseudo' => 'test_user_01',
             'role' => 'user',
         ]);
 

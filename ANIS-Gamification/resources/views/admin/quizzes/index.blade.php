@@ -107,6 +107,7 @@
                             <thead class="bg-surface-container">
                                 <tr>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Titre</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Module lié</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Difficulté</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Questions créées / prévues</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Durée</th>
@@ -118,6 +119,13 @@
                                 @forelse($quizzes as $quiz)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $quiz->title }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">
+                                            @if($quiz->module)
+                                                Module {{ $quiz->module->order }} - {{ $quiz->module->title }}
+                                            @else
+                                                <span class="text-on-surface-variant">Non défini</span>
+                                            @endif
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $quiz->difficulty }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $quiz->questions_configured_count }} / {{ $quiz->questions_count }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface">{{ $quiz->duration_minutes }} min</td>
@@ -139,7 +147,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="px-6 py-12 text-center text-sm text-on-surface-variant">Aucun quiz n'a encore été créé.</td>
+                                        <td colspan="7" class="px-6 py-12 text-center text-sm text-on-surface-variant">Aucun quiz n'a encore été créé.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

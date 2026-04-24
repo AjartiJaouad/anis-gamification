@@ -95,6 +95,22 @@
                         @csrf
 
                         <div>
+                            <label for="module_id" class="block text-sm font-semibold text-on-surface">Module lié</label>
+                            <select id="module_id" name="module_id" required
+                                class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10">
+                                <option value="">Sélectionnez un module</option>
+                                @foreach($modules as $module)
+                                    <option value="{{ $module->id }}" {{ (int) old('module_id') === $module->id ? 'selected' : '' }}>
+                                        Module {{ $module->order }} - {{ $module->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('module_id')
+                                <p class="mt-2 text-sm text-error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
                             <label for="title" class="block text-sm font-semibold text-on-surface">Titre du quiz</label>
                             <input id="title" name="title" type="text" value="{{ old('title') }}" required
                                 class="mt-2 w-full rounded-2xl border border-surface-container bg-surface-container-lowest px-4 py-3 text-on-surface outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />

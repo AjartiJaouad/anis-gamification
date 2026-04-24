@@ -48,6 +48,11 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if($errors->has('module'))
+            <div class="mb-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">
+                {{ $errors->first('module') }}
+            </div>
+        @endif
 
         <article class="rounded-[2rem] border border-surface-container bg-white p-8 shadow-sm">
             <div class="flex flex-wrap items-center justify-between gap-3">
@@ -73,7 +78,7 @@
             </div>
 
             <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p class="text-sm text-on-surface-variant">Quand tu finis ce contenu, marque-le pour suivre ta progression.</p>
+                <p class="text-sm text-on-surface-variant">Valide d'abord le quiz lié au module (70% min), puis confirme la completion.</p>
                 <form method="POST" action="{{ route('modules.complete', $module) }}">
                     @csrf
                     <button type="submit" class="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-dim">
@@ -81,6 +86,13 @@
                     </button>
                 </form>
             </div>
+            @if($moduleQuiz)
+                <div class="mt-4">
+                    <a href="{{ route('quizzes.show', $moduleQuiz) }}" class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-5 py-2 text-sm font-semibold text-primary transition hover:bg-primary/10">
+                        Aller au quiz de ce module
+                    </a>
+                </div>
+            @endif
         </article>
     </main>
 </body>

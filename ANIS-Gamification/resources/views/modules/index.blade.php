@@ -78,6 +78,7 @@
                 @php
                     $isUnlocked = $module->order <= (auth()->user()->highest_unlocked_difficulty ?? 1);
                     $isCompleted = in_array($module->id, $completedModuleIds, true);
+                    $isValidatedByQuiz = in_array($module->id, $validatedModuleIds, true);
                 @endphp
                 <article class="rounded-[2rem] border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md {{ $isUnlocked ? 'border-primary/10' : 'border-surface-container opacity-90' }}">
                     <div class="flex items-start justify-between gap-3">
@@ -91,6 +92,9 @@
                     </div>
 
                     <p class="mt-4 text-sm leading-6 text-on-surface-variant">{{ \Illuminate\Support\Str::limit($module->content, 140) }}</p>
+                    <p class="mt-2 text-xs font-semibold uppercase tracking-[0.16em] {{ $isValidatedByQuiz ? 'text-emerald-700' : 'text-on-surface-variant' }}">
+                        {{ $isValidatedByQuiz ? 'Quiz validé (>= 70%)' : 'Quiz pas encore validé' }}
+                    </p>
 
                     <div class="mt-6 flex items-center justify-between gap-3">
                         <span class="text-xs font-semibold uppercase tracking-[0.18em] text-on-surface-variant">Ordre {{ $module->order }}</span>

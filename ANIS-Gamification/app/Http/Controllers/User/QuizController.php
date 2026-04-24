@@ -13,7 +13,7 @@ class QuizController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $quizzes = Quiz::orderBy('created_at', 'desc')->get();
+        $quizzes = Quiz::with('module:id,title,order')->orderBy('created_at', 'desc')->get();
         $unlockedDifficulty = $user->highest_unlocked_difficulty ?? 1;
 
         return view('quizzes.index', compact('quizzes', 'unlockedDifficulty'));
@@ -21,6 +21,7 @@ class QuizController extends Controller
 
     public function show(Request $request, Quiz $quiz)
     {
+        $quiz->load('module:id,title,order');
         $user = $request->user();
         $availableDifficulties = $quiz->questions()
             ->with('level')
@@ -144,6 +145,13 @@ class QuizController extends Controller
             'xp_gained' => $xpGained,
             'passed' => $passed,
         ]);
+
+        if ($passed && $quiz->module_id) {
+            $user->completedModules()->syncWithoutDetaching([
+                $quiz->module_id => ['completed_at' => now()],
+            ]);
+        }
+
         $user->checkBadges();
 
         if ($passed) {
